@@ -1,0 +1,186 @@
+﻿/*-----------------------------------*/
+/* Select Elements */
+/*-----------------------------------*/
+
+.cusel,
+#cuselBox .cusel-scroll-wrap,
+#cuselBox .jScrollPaneContainer,
+#cuselBox .cusel-scroll-pane {
+    width: 100% !important;
+}
+.cusel {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    outline: none;
+    padding: 6px 0;
+    margin-top: -6px;
+}
+.cuselOpen {z-index: 999;}
+
+.cuselText label::selection {background-color: transparent;}
+
+/* Right Arrow */
+.cuselFrameRight {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    bottom: 6px;
+    width: 34px;
+    cursor: pointer;
+    text-align: center;
+	display:none;
+}
+.cuselFrameRight:before {
+    content: '\e63f';
+    font-family: 'ThemeFuse';
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    font-size: 8px;
+    color: #181818;
+    line-height: 40px;
+}
+.ie8 .cuselFrameRight:before,
+.ie9 .cuselFrameRight:before {
+    color: #fff;
+    text-shadow: none;
+    line-height: 48px;
+}
+
+/* Selected Item */
+.cuselText {cursor: pointer;} /* Needed for iPad */
+
+.cuselText label {
+	background:none;
+	color:#bfbfbf;
+	font-size:15px;
+	font-weight:500;
+	padding: 11px;
+	text-align:center;
+	outline:none;
+}
+
+/* Select List */
+#cuselBox {
+    position: absolute;
+    z-index: 999;
+    background: #000;
+	background-color: rgba(0,0,0,0.90);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    padding: 5px 0;
+    text-align: left;
+}
+#cuselBox .jScrollPaneContainer {
+    position: relative;
+    overflow: hidden;
+}
+#cuselBox .cusel-scroll-pane {padding-right: 0 !important;}
+
+#cuselBox span {
+    display: block;
+    cursor: pointer;    /* Needed for iPad */
+    padding: 0 16px;
+}
+#cuselBox span label {
+    display: block;
+    cursor: pointer;
+    padding: 11px 5px;
+    position: relative;
+    border-top: 1px solid #f2e2e6;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 15px;
+    border-top: 1px solid #484848;
+    border-bottom: 1px solid #000;
+    -webkit-touch-callout: none;
+}
+#cuselBox span label em {font-style: normal; color: #a6a6a6; text-transform: none;}
+
+#cuselBox span:first-child label {border-top: none;}
+#cuselBox span:last-child label {border-bottom: none;}
+
+
+#cuselBox span.cuselOptHover label,
+/*#cuselBox span.cuselActive label,*/
+#cuselBox span.cuselOptHover label em,
+#cuselBox span.cuselActive label em {
+    color: #fff;
+}
+
+/*#cuselBox span:hover label, #cuselBox span:hover label em{
+	color:#ffa42e;}*/
+
+
+
+/*Optgroup*/
+#cuselBox span.optgroup {cursor: default;}
+#cuselBox span.optgroup label {
+    cursor: default;
+    padding: 11px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #06dcaf;
+}
+
+/* Scrolling */
+#cuselBox .jScrollPaneTrack {
+    width: 6px !important;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    bottom: 0;
+
+}
+#cuselBox .jScrollPaneDrag {
+    position: absolute;
+    cursor: pointer;
+    width: 100% !important;
+    background: #000;
+    border-radius: 3px;
+}
+/*
+.jScrollArrowUp,
+.jScrollArrowDown {
+    width: 10px !important;
+    height: 8px;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    cursor: pointer;
+}
+.jScrollArrowDown {
+    top: auto;
+    bottom: 0;
+}
+.jScrollArrowUp:before,
+.jScrollArrowDown:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid #b8c901;
+}
+.jScrollArrowDown:before {
+    border-top: 8px solid #b8c901;
+    border-bottom: none;
+}*/
+
+/*-----------------------------------*/
+/* Select Elements in Shopping CART */
+/*-----------------------------------*/
+
+.field-select.styled .cuselText label {
+    background-color: #e6e6e6;
+    font-size: 14px;
+    color: #000;
+    text-transform: none;
+    letter-spacing: 0;
+}
