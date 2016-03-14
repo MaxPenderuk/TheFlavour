@@ -34,123 +34,61 @@
                 <div class="main-carousel invisible">
                     <div id="myCarousel91" class="carousel slide">
                         <div class="carousel-inner">
-                            <div class="item active" style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide1.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
+                            @for (int i = 0; i < ViewBag.ImageNames.Count; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="item active" style="background-image:url('../../images/Slides/@ViewBag.ImageNames[i]');">
+                                        <div class="title-wrap">
+                                            <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
+                                                <div class="slider-title-before">
+                                                    <div class="title-line left"></div>
+                                                    <span>The</span>                                        <div class="title-line right"></div>
+                                                </div>
+                                                <h1 class="slider-title">Flavour</h1>
+                                                <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
+                                            </div>
+                                            <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
+                                                <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
+                                            </div>
                                         </div>
-                                        <h1 class="slider-title">Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
                                     </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide2.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
+                                }
+                                else
+                                {
+                                    <div class="item" style="background-image:url('../../images/Slides/@ViewBag.ImageNames[i]');">
+                                        <div class="title-wrap">
+                                            <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
+                                                <div class="slider-title-before">
+                                                    <div class="title-line left"></div>
+                                                    <span>The</span>                                        <div class="title-line right"></div>
+                                                </div>
+                                                <h1 class="slider-title">Flavour</h1>
+                                                <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
+                                            </div>
+                                            <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
+                                                <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
+                                            </div>
                                         </div>
-                                        <h1 class="slider-title">Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
                                     </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide3.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
-                                        </div>
-                                        <h1 class="slider-title"> Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
-                                    </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide4.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
-                                        </div>
-                                        <h1 class="slider-title"> Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
-                                    </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide5.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
-                                        </div>
-                                        <h1 class="slider-title"> Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
-                                    </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide6.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
-                                        </div>
-                                        <h1 class="slider-title"> Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
-                                    </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item " style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide7.jpg);">
-                                <div class="title-wrap">
-                                    <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
-                                        <div class="slider-title-before">
-                                            <div class="title-line left"></div>
-                                            <span>The</span>                                        <div class="title-line right"></div>
-                                        </div>
-                                        <h1 class="slider-title"> Flavour</h1>
-                                        <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
-                                    </div>
-                                    <div data-animate-in="fadeInUp" data-animate-out="fadeOutDown" class="invisible">
-                                        <a href="#nav-main" class="btn slider-btn anchor-scroll"><span>discover our place</span></a>
-                                    </div>
-                                </div>
-                            </div>
+                                }
+                            }
 
                         </div>
                         <!--Slider Navigation-->
                         <div class="post-navigation">
                             <ol class="carousel-indicators">
-                                <li data-target="#myCarousel91" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel91" data-slide-to="1" class=""></li>
-                                <li data-target="#myCarousel91" data-slide-to="2" class=""></li>
-                                <li data-target="#myCarousel91" data-slide-to="3" class=""></li>
-                                <li data-target="#myCarousel91" data-slide-to="4" class=""></li>
-                                <li data-target="#myCarousel91" data-slide-to="5" class=""></li>
-                                <li data-target="#myCarousel91" data-slide-to="6" class=""></li>
+                                @for (int i = 0; i < ViewBag.ImageNames.Count; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <li data-target="#myCarousel91" data-slide-to="@i" class="active"></li>
+                                    }
+                                    else
+                                    {
+                                        <li data-target="#myCarousel91" data-slide-to="@i" class=""></li>
+                                    }
+                                }
                             </ol>
                             <a class="carousel-control left" href="#myCarousel91" data-slide="prev"><i class="tficon-shevron-left"></i></a>
                             <a class="carousel-control right" href="#myCarousel91" data-slide="next"><i class="tficon-shevron-right"></i></a>
