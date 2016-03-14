@@ -200,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,14 +219,14 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\bg-reservation.jpg" />
-    <Content Include="images\Slides\slide1.jpg" />
-    <Content Include="images\Slides\slide2.jpg" />
-    <Content Include="images\Slides\slide3.jpg" />
-    <Content Include="images\Slides\slide4.jpg" />
-    <Content Include="images\Slides\slide5.jpg" />
-    <Content Include="images\Slides\slide6.jpg" />
-    <Content Include="images\Slides\slide7.jpg" />
+    <Content Include="images\Home\bg-reservation.jpg" />
+    <Content Include="images\Home\Slides\slide1.jpg" />
+    <Content Include="images\Home\Slides\slide2.jpg" />
+    <Content Include="images\Home\Slides\slide3.jpg" />
+    <Content Include="images\Home\Slides\slide4.jpg" />
+    <Content Include="images\Home\Slides\slide5.jpg" />
+    <Content Include="images\Home\Slides\slide6.jpg" />
+    <Content Include="images\Home\Slides\slide7.jpg" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -281,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\Home\Events\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TheFlavour.Models;
 
 namespace TheFlavour.Controllers
 {
@@ -11,17 +12,40 @@ namespace TheFlavour.Controllers
     {
         public ActionResult Index()
         {
+            HomeModel homeModel = new HomeModel() {
+                ImageNames = new List<string>(),
+                Offers = new List<SpecialOffer>()
+            };
+
             // Path to images we need for slider.
-            string filePath = Server.MapPath(@"~/images/Slides/");
+            string filePath = Server.MapPath(@"~/images/Home/Slides/");
             DirectoryInfo imgDir = new DirectoryInfo(filePath);
-            List<string> imageNames = new List<string>();
+            
             foreach (var file in imgDir.GetFiles("*.jpg"))
             {
-                imageNames.Add(file.Name);
+                homeModel.ImageNames.Add(file.Name);
             }
-            ViewBag.ImageNames = imageNames;
 
-            return View();
+            // Add info about offers to render.
+            homeModel.Offers.Add(new SpecialOffer(
+                    "../images/Home/Events/offer1-200x200.jpg",
+                    "breakfast menu only $19<sup>.50</sup>",
+                    "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
+                ));
+
+            homeModel.Offers.Add(new SpecialOffer(
+                    "../images/Home/Events/offer21-200x200.jpg",
+                    "cooking class tuesday",
+                    "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
+                ));
+
+            homeModel.Offers.Add(new SpecialOffer(
+                    "../images/Home/Events/offer3-200x200.jpg",
+                    "&#8220;HAPPY HOUR&#8221; through 2<sup>PM</sup> &#8211; 3<sup>PM</sup>",
+                    "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
+                ));
+
+            return View(homeModel);
         }
 
         public ActionResult About()

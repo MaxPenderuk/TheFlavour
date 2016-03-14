@@ -2048,7 +2048,7 @@ textarea:focus::-webkit-input-placeholder {
 }
 /*Reservation CSS*/
 .wrap-reservation {
-  background: url(../images/bg-reservation.jpg) no-repeat;
+  background: url(../images/Home/bg-reservation.jpg) no-repeat;
   width: 287px;
   overflow: hidden;
   text-align: center;

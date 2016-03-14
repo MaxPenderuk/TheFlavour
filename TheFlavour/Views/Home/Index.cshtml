@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TheFlavour.Models.HomeModel
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -34,11 +35,11 @@
                 <div class="main-carousel invisible">
                     <div id="myCarousel91" class="carousel slide">
                         <div class="carousel-inner">
-                            @for (int i = 0; i < ViewBag.ImageNames.Count; i++)
+                            @for (int i = 0; i < Model.ImageNames.Count; i++)
                             {
                                 if (i == 0)
                                 {
-                                    <div class="item active" style="background-image:url('../../images/Slides/@ViewBag.ImageNames[i]');">
+                                    <div class="item active" style="background-image:url('../../images/Home/Slides/@Model.ImageNames[i]');">
                                         <div class="title-wrap">
                                             <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
                                                 <div class="slider-title-before">
@@ -56,7 +57,7 @@
                                 }
                                 else
                                 {
-                                    <div class="item" style="background-image:url('../../images/Slides/@ViewBag.ImageNames[i]');">
+                                    <div class="item" style="background-image:url('../../images/Home/Slides/@Model.ImageNames[i]');">
                                         <div class="title-wrap">
                                             <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
                                                 <div class="slider-title-before">
@@ -78,7 +79,7 @@
                         <!--Slider Navigation-->
                         <div class="post-navigation">
                             <ol class="carousel-indicators">
-                                @for (int i = 0; i < ViewBag.ImageNames.Count; i++)
+                                @for (int i = 0; i < Model.ImageNames.Count; i++)
                                 {
                                     if (i == 0)
                                     {
@@ -371,46 +372,23 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 postlist">
-                            <div class="post clearfix">
-                                <div class="inner">
-                                    <div class="post-thumbnail"><a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50" class="post-find-more"><span><div class="divider up"></div>Find Out More<div class="divider down"></div></span></a><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer1-200x200.jpg"></div><div class="entry-aside">
-                                        <header class="entry-header">
-                                            <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50">breakfast menu only $19<sup>.50</sup></a></h1>
-                                        </header>
-                                        <div class="entry-meta">
-                                            <a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50"><span class="tficon-row"></span></a>
+                            @foreach (var item in Model.Offers)
+                            {
+                                <div class="post clearfix">
+                                    <div class="inner">
+                                        <div class="post-thumbnail"><a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50" class="post-find-more"><span><div class="divider up"></div>Find Out More<div class="divider down"></div></span></a><img src="@item.ImageLink"></div><div class="entry-aside">
+                                            <header class="entry-header">
+                                                <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50">@Html.Raw(item.Header)</a></h1>
+                                            </header>
+                                            <div class="entry-meta">
+                                                <a href="http://demo.themefuse.com/theflavour/?event=breakfast-menu-only-19-50"><span class="tficon-row"></span></a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="entry-content"><p>@item.Content</p></div>
                                         </div>
-                                        <div class="clearfix"></div>
-                                        <div class="entry-content"><p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet.</p></div>
                                     </div>
                                 </div>
-                            </div><div class="post clearfix">
-                                <div class="inner">
-                                    <div class="post-thumbnail"><a href="http://demo.themefuse.com/theflavour/?event=cooking-class-tuesdays" class="post-find-more"><span><div class="divider up"></div>Find Out More<div class="divider down"></div></span></a><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer21-200x200.jpg"></div><div class="entry-aside">
-                                        <header class="entry-header">
-                                            <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?event=cooking-class-tuesdays">cooking class tuesdays</a></h1>
-                                        </header>
-                                        <div class="entry-meta">
-                                            <a href="http://demo.themefuse.com/theflavour/?event=cooking-class-tuesdays"><span class="tficon-row"></span></a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="entry-content"><p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet.</p></div>
-                                    </div>
-                                </div>
-                            </div><div class="post clearfix">
-                                <div class="inner">
-                                    <div class="post-thumbnail"><a href="http://demo.themefuse.com/theflavour/?event=happy-hour-through-2pm-3pm" class="post-find-more"><span><div class="divider up"></div>Find Out More<div class="divider down"></div></span></a><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer3-200x200.jpg"></div><div class="entry-aside">
-                                        <header class="entry-header">
-                                            <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?event=happy-hour-through-2pm-3pm">&#8220;HAPPY HOUR&#8221; through 2<sup>PM</sup> &#8211; 3<sup>PM</sup></a></h1>
-                                        </header>
-                                        <div class="entry-meta">
-                                            <a href="http://demo.themefuse.com/theflavour/?event=happy-hour-through-2pm-3pm"><span class="tficon-row"></span></a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="entry-content"><p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet.</p></div>
-                                    </div>
-                                </div>
-                            </div>
+                            }
                         </div>
                         <div class="col-md-4 reservation">
                             <div class="wrap-reservation">
