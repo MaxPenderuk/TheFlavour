@@ -80,3 +80,5 @@ c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlav
 c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\obj\Debug\TheFlavour.csprojResolveAssemblyReference.cache
 c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\obj\Debug\TheFlavour.dll
 c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\obj\Debug\TheFlavour.pdb
+C:\Users\jaspe\OneDrive\Documents\Visual Studio 2015\Projects\TheFlavour\TheFlavour\bin\RestSharp.dll
+C:\Users\jaspe\OneDrive\Documents\Visual Studio 2015\Projects\TheFlavour\TheFlavour\bin\RestSharp.xml

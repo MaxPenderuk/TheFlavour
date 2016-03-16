@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TheFlavour.Models;
+using TheFlavour.ViewModels;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace TheFlavour.Controllers
 {
@@ -45,6 +48,8 @@ namespace TheFlavour.Controllers
                     "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
                 ));
 
+            homeModel.PhoneNumber = "0844.335.1211";
+
             return View(homeModel);
         }
 
@@ -55,11 +60,47 @@ namespace TheFlavour.Controllers
             return View();
         }
 
+
+        // GET: Home/Contact
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            // Dictionary that contains contact info for view.
+            // Dictionary<className, new Tuple<title, content>>();
+            Dictionary<string, Tuple<string, string>> info = new Dictionary<string, Tuple<string, string>>();
+            info.Add("address", new Tuple<string, string>("ADDRESS", "Opposite Croma, Road 36, Jubilee Hills, Hyderabad"));
+            info.Add("openning-hours", new Tuple<string, string>("OPENING HOURS", "12 Noon to 9 PM"));
+            info.Add("phone-number", new Tuple<string, string>("PHONE NUMBER", "Opposite Croma, Road 36, Jubilee Hills, Hyderabad"));
+            
+            ViewBag.Info = info;
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public int Contact([Bind(Include = "FullName, Email, Message")] ContactForm contactForm, int form_id)
+        {
+            // If form is valid -> send a message via MailGun.
+            if (ModelState.IsValid)
+            {
+                RestClient client = new RestClient();
+                client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+                client.Authenticator = new HttpBasicAuthenticator("api",
+                    "key-df53234228b396feac9da6e2cc066c01");
+                RestRequest request = new RestRequest();
+                request.AddParameter("domain",
+                    "sandbox24405ccf53df416781e7bcf22d0261aa.mailgun.org", ParameterType.UrlSegment);
+                request.Resource = "{domain}/messages";
+                request.AddParameter("to", "jaspergrom@gmail.com");
+                request.AddParameter("from", contactForm.Email);
+                request.AddParameter("subject", "`Contact us` form");
+                request.AddParameter("text", contactForm.Message);
+                request.Method = Method.POST;
+                client.Execute(request);
+                return 1;
+            }
+
+            return 0;
+        }
+        
     }
 }

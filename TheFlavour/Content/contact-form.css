@@ -1,0 +1,105 @@
+﻿.tfuse_captcha_reload{
+    background-image: url(../images/reload.png) !important;
+    background-repeat: no-repeat !important;
+    height: 18px !important;
+    margin-top: 15px !important;
+    max-width: 16px !important;
+    vertical-align: top;
+    background-color: transparent !important;
+    border:none !important;
+    padding: 10px !important;
+}
+input.tfuse_captcha_input{
+    border: 3px solid #000;
+}
+.link-reset{
+    float: right;
+    margin-top: 20px;
+}
+.contact-form .label_title{
+    display: block;
+}
+.contact-form .form-field_textarea{
+    margin-bottom: 65px;
+}
+.field_radiobox input[type="radio"], .field_checkbox input[type="checkbox"]{
+    margin-right: 6px;
+    float: left;
+}
+.field_radiobox label, .field_checkbox label{
+    display: block;
+    padding-top: 3px;
+}
+.multicheckbox{
+    margin-bottom: 5px;
+}
+.contact-form .select_styled{
+    border: 3px solid #000;
+    height: 50px;
+    margin-top: 1px;
+}
+.contact-form .field_select{
+    position: relative;
+}
+.contact-form .select_row_up{
+    left: 92%;
+    top:20%;
+}
+.contact-form .select_row_down{
+    left: 92%;
+    bottom: -14%;
+}
+#cuselBox span {
+    background: #000;
+}
+#cuselBox{
+    background: #000;
+    border: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-sizing: none;
+}
+#sending_img{
+    margin-left: 10px;
+}
+/* preview */
+.pull-left{
+    float: left;
+}
+.contact-form .form-field_text{
+    margin-right: 20px;
+    margin-bottom: 65px;
+}
+.contact-form .inputtext, .tfuse_captcha_input{
+    padding: 0 14px;
+    height: 50px;
+    border: 3px solid #000;
+    border-radius: 0;
+    background: #fff !important;
+}
+.link-reset{
+    margin-right: 30px;
+    color: #FFA42E;
+    text-decoration: none;
+}
+.contact-form #submit {
+    background: #FFA42E;
+    border: 2px solid #FFA42E;
+    color: #000;
+    font-size: 15px;
+    padding: 19px 65px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: none;
+}
+.contact-form #submit:hover{
+    background: none;
+    color: #FFA42E;
+}
+.contact-form textarea, .contact-form select{
+    border: 3px solid #000;
+    background: #fff !important;
+}
+.contact-form input[type="checkbox"], .contact-form input[type="radio"]{
+    margin-top: 4px;
+}

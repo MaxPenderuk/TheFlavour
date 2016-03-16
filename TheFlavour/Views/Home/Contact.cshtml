@@ -1,17 +1,162 @@
-﻿@{
+﻿@model TheFlavour.ViewModels.ContactForm
+@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<script src="@Url.Content("~/Scripts/TheFlavour/contact_forms.js")"></script>
+<link href="@Url.Content("~/Content/contact-form.css")" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='http://demo.themefuse.com/theflavour/wp-includes/js/jquery/jquery.form.min.js?ver=3.37.0'></script>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div id="page" class="hfeed site">
+        @Html.Partial("_CommonNav")
+        <section class="main-top">
+            <div class="see-location contact-page">
+                <div class="row">
+                    <div id="contact_map4" class="map contact_map"></div>
+                    <script>
+                    jQuery(window).ready(function () {
+                        jQuery("#contact_map4").gMap({
+                            markers: [{
+                                latitude: 40.715417,
+                                longitude: -73.99305600000002,
+                                title: "Company Name LTD",
+                                html: "<strong>Company Name HQ</strong> <br> 880 Sunset Boulevard, San Diego, CA, United States <br>Tel.: 555-522.326",
+                                popup: false,
+                                icon: {
+                                    image: "http://demo.themefuse.com/theflavour/wp-content/themes/theflavour-parent/images/icons/gmap_icon.png",
+                                    iconsize: [25, 34],
+                                    iconanchor: [12,34],
+                                    infowindowanchor: [0, 0]
+                                }
+                            }],
+                            zoom: 15,
+                            scrollwheel: false,
+                            maptype: google.maps.MapTypeId.ROADMAP
+                        });
+                    });
+                    </script>
+                </div>
+            </div>
+        </section>
+    <div id="main" class="site-main blog-details" role="main">
+            <h2 class="page-title-before">SEND US A MESSAGE</h2><h1 class="page-title">Contact us now</h1>    <div class="container sidebar-right">
+                <div class="row">
+                    <div class="col-xs-12 content-area col-sm-8" id="primary">
+                        <div class="post-descr entry">
+                            <div class="contact-form col-md-10 col-md-offset-1">
+                                <div id="form_messages" class="submit_message"></div>
+                                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @id = "contactForm", @class = "ajax_form contactForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input id="this_form_id" type="hidden" value="0" />
+                                    <div class='form-field_text pull-left  ' style=''>
+                                        <label class='label_title' for='FullName'>NAME AND SURNAME:</label>
+                                        @Html.TextBoxFor(m => m.FullName, new { @class = "inputtext input_middle the-flavour_name", @style = "width:287px" })
+                                    </div>
+                                    <div class='form-field_text pull-left  omega ' style=''>
+                                        <label class='label_title' for='Email'>EMAIL ADDRESS:</label>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "inputtext input_middle the-flavour_email", @style = "width:287px" })
+                                     </div>
+                                    <div class="clear"></div><div class='form-field_textarea' style=''>
+                                        <label class='label_title' for='Message'>MESSAGE:</label>
+                                        @Html.TextAreaFor(m => m.Message, new { @class = "textarea textarea_middle the-flavour_message", @style = "width:594px", rows = 10 })
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="clear"></div>
+                                    <div class="submit-form clearfix" style="width:100%">
+                                        <button name="submit" class="btn-submit" id="submit" type="submit">submit the message</button>
+                                        <button class="sending" id="submit" style="display: none;" type="submit">Sending ...</button>
+                                        <img id="sending_img" src="http://demo.themefuse.com/theflavour/wp-content/themes/theflavour-parent/images/loading.gif" alt="Sending" style="margin-bottom:-10px; display: none; border:0;" />
+                                    </div>
+                                }
+                            </div>
+                        <div class="clear"></div>
+                        </div><!-- /.entry -->
+                    </div><!-- /#primary -->
+
+                    <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12 sidebar widget-area" id="secondary">
+                        <div class="inner">
+                            <div class="widget widget-text">
+                                <div class="textwidget">
+                                    @foreach (var item in ViewBag.Info)
+                                    {
+                                        <div class="@item.Key">
+                                            <h3 class="title">@item.Value.Item1</h3>
+                                            <p>@item.Value.Item2</p>
+                                        </div>
+                                    }           
+                                     <div class="social-links">
+                                        <span class="social-icons">
+                                            <a href="https://www.facebook.com/themefuse" title="Facebook" target="_blank">
+                                                <i class="tficon-facebook"></i>
+                                            </a>
+                                            <a href="https://twitter.com/themefuse" title="Twitter" target="_blank">
+                                                <i class="tficon-twitter"></i>
+                                            </a>
+                                            <a href="http://www.pinterest.com/search/pins/?q=themefuse" title="Pinterest" target="_blank">
+                                                <i class="tficon-pinterest"></i>
+                                            </a>
+                                            <a href="http://www.tripadvisor.com/" title="Trip Advisor" target="_blank">
+                                                <i class="tficon-trip-advisor"></i>
+                                            </a>
+                                            <a href="http://instagram.com/" title="Instagram" target="_blank">
+                                                <i class="tficon-instagram"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/ .inner -->
+                    </div><!--/ #secondary -->
+
+                </div><!-- /.row -->
+            </div><!--/ .container -->
+        </div><!--/ #middle -->
+
+        <div class="divider"></div>
+        <footer class="footer">
+            <div class="row footer-nav">
+                <div class="container">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <nav id="site-navigation3" class="site-navigation">
+                            <ul id="menu-footer" class="">
+                                <li id="menu-item-903" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-903"><a href="http://demo.themefuse.com/theflavour/">Home</a></li>
+                                <li id="menu-item-838" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-838"><a href="http://demo.themefuse.com/theflavour/?list-menus=food-menu">Menu</a></li>
+                                <li id="menu-item-904" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-904"><a href="http://demo.themefuse.com/theflavour/?page_id=452">About Us</a></li>
+                                <li id="menu-item-905" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-905"><a href="http://demo.themefuse.com/theflavour/?page_id=617">Gallery</a></li>
+                                <li id="menu-item-839" class="menu-item menu-item-type-taxonomy menu-item-object-events menu-item-839"><a href="http://demo.themefuse.com/theflavour/?events=all-events">Events</a></li>
+                                <li id="menu-item-906" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-906"><a href="http://demo.themefuse.com/theflavour/?page_id=462">Reservation</a></li>
+                                <li id="menu-item-840" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-840"><a href="http://demo.themefuse.com/theflavour/?cat=2">Blog</a></li>
+                                <li id="menu-item-841" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-841"><a href="#">Pages</a></li>
+                                <li id="menu-item-907" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-439 current_page_item menu-item-907"><a href="http://demo.themefuse.com/theflavour/?page_id=439">Contact</a></li>
+                            </ul>
+                        </nav>                    <!--Footer Social-->
+                        <div class="footer-socials">
+                            <span class="social-icons">
+                                <a href="https://www.facebook.com/themefuse" title="Facebook" target="_blank">
+                                    <i class="tficon-facebook"></i>
+                                </a>
+                                <a href="https://twitter.com/themefuse" title="Twitter" target="_blank">
+                                    <i class="tficon-twitter"></i>
+                                </a>
+                                <a href="http://www.pinterest.com/search/pins/?q=themefuse" title="Pinterest" target="_blank">
+                                    <i class="tficon-pinterest"></i>
+                                </a>
+                                <a href="http://www.tripadvisor.com/" title="Trip Advisor" target="_blank">
+                                    <i class="tficon-trip-advisor"></i>
+                                </a>
+                                <a href="http://instagram.com/" title="Instagram" target="_blank">
+                                    <i class="tficon-instagram"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <!--Copyright-->
+                        <div class="copyright">
+                            Restaurant Wordpress theme © 2014 Made by <a rel="nofollow" href="http://themefuse.com" target="_blank">ThemeFuse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+    </div><!-- /#page-->
