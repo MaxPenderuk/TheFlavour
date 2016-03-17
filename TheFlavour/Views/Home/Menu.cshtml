@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+
+<div id="page" class="hfeed site">
+    @Html.Partial("_CommonNav")
+    <section class="main-top">
+        <div class="main-slider">
+            <div class="wrap-main-slider" style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/04/bg.jpg);">
+                <div class="main-slider-content">
+                    <h1 class="main-slider-title">Food menu</h1>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="categories-slider menu-slider">
+                                    <div class="caroufredsel_wrapper">
+                                        <ul id="categories-slider">
+                                            @foreach (var item in ViewBag.Menu)
+                                            {
+                                                <li class="categories-item">
+                                                    <a href="#@item.Href" class="anchor-scroll"><img src="http://@(Request.Url.Authority + item.ImageLink)"><br><br>@item.Name</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="prev" id="categories-prev" href="#"><i class="tficon-shevron-left"></i></a>
+            <a class="next" id="categories-next" href="#"><i class="tficon-shevron-right"></i></a>
+        </div>
+    </section><div id="main" class="site-main" role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    @foreach (var item in ViewBag.Menu)
+                    {
+                        <section class="dishes" id="@item.Href">
+                            <h1 class="title">
+                                <div class="ribbon">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 261.98 57.981" enable-background="new 0 0 261.98 57.981" xml:space="preserve">
+                                    <g>
+                                    <g>
+                                    <path d="M36.638,7.173l8.318,50.808h172.071l8.318-50.808H36.638z M45.59,0H0.369l15.234,25.403L0,50.808h39.688
+                                            L32.451,4.784L45.59,0z M246.377,25.403L261.611,0h-45.22l13.137,4.784l-7.235,46.023h39.686L246.377,25.403z" />
+                                        </g>
+                                    </g>
+                                    <span>@item.Name</span>
+                                </svg>
+                                </div>
+                            </h1>
+                            <ul>
+                                @foreach (var i in item.Foods)
+                                {
+                                    <li>
+                                        <div class="dishes-thumbnail">
+                                            <a title="@i.Name" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + i.ImageLink)"><img width="147" height="150" src="http://@(Request.Url.Authority + i.ImageLink)" class="attachment-thumbnail wp-post-image" /></a>
+                                        </div>
+                                        <div class="dishes-content">
+                                            <h2 class="dishes-content-title">
+                                                <span>
+                                                    @i.Name
+                                                </span>
+                                                <span class="price">@Html.Raw(i.Price)</span>
+                                            </h2>
+                                            <p>@i.Description</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </section>
+                    }
+                </div><!-- /.col-sm-8-->
+            </div><!-- /.row-->
+        </div><!-- /.container-->
+    </div><!-- /#main-->
+
+    <section class="section-button main-top">
+        <a href="http://demo.themefuse.com/theflavour?list-menus=desert-menu" class="btn btn-black-transparent" target="_self"><span>VIEW Desert MENU</span></a>
+        <a href="http://demo.themefuse.com/theflavour?list-menus=drinks-menu" class="btn btn-black-transparent" target="_self"><span>VIEW DRINKS MENU</span></a>
+    </section>
+    @Html.Partial("_BottomPart")
+    <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>r
+</div><!-- /#page-->
+@Html.Partial("_GoogleMapPart")

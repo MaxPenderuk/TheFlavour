@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.Entity;
 using System.Web.Mvc;
 using TheFlavour.Models;
 using TheFlavour.ViewModels;
@@ -13,10 +15,12 @@ namespace TheFlavour.Controllers
 {
     public class HomeController : Controller
     {
+        private DishesEntities db = new DishesEntities();
+
         public ActionResult Index()
         {
             HomeModel homeModel = new HomeModel() {
-                ImageNames = new List<string>(),
+                ImagePath = new List<string>(),
                 Offers = new List<SpecialOffer>()
             };
 
@@ -26,24 +30,24 @@ namespace TheFlavour.Controllers
             
             foreach (var file in imgDir.GetFiles("*.jpg"))
             {
-                homeModel.ImageNames.Add(file.Name);
+                homeModel.ImagePath.Add("http://" + Request.Url.Authority + "/images/Home/Slides/" + file.Name);
             }
 
             // Add info about offers to render.
             homeModel.Offers.Add(new SpecialOffer(
-                    "../images/Home/Events/offer1-200x200.jpg",
+                     "http://" + Request.Url.Authority + "/images/Home/Events/offer1-200x200.jpg",
                     "breakfast menu only $19<sup>.50</sup>",
                     "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
                 ));
 
             homeModel.Offers.Add(new SpecialOffer(
-                    "../images/Home/Events/offer21-200x200.jpg",
+                    "http://" + Request.Url.Authority + "/images/Home/Events/offer21-200x200.jpg",
                     "cooking class tuesday",
                     "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
                 ));
 
             homeModel.Offers.Add(new SpecialOffer(
-                    "../images/Home/Events/offer3-200x200.jpg",
+                    "http://" + Request.Url.Authority + "/images/Home/Events/offer3-200x200.jpg",
                     "&#8220;HAPPY HOUR&#8221; through 2<sup>PM</sup> &#8211; 3<sup>PM</sup>",
                     "Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasellus mirolestie magna non lorem ipsum dolor site amet."
                 ));
@@ -100,6 +104,17 @@ namespace TheFlavour.Controllers
             }
 
             return 0;
+        }
+
+        public ActionResult Menu(int? Id)
+        {
+            if (Id == 1)
+            {
+                var foodMenu = db.Categories.Where(x => x.Menu_ID == Id).ToList();
+                
+                ViewBag.Menu = foodMenu;
+            }
+            return View();
         }
         
     }

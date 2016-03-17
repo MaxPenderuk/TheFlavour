@@ -24,8 +24,7 @@ namespace TheFlavour
                     "~/Scripts/TheFlavour/scrollto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/gmap").Include(
-                    "~/Scripts/TheFlavour/gmap-api.js",
-                    "~/Scripts/TheFlavour/gmap.min.js"));
+                   "~/Scripts/TheFlavour/gmap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

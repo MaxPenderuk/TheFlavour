@@ -22,7 +22,7 @@ namespace TheFlavour.Models
     public class HomeModel
     {
         public string PhoneNumber { get; set; }
-        public List<string> ImageNames { get; set; }
+        public List<string> ImagePath { get; set; }
         public List<SpecialOffer> Offers { get; set; }
     }
 }

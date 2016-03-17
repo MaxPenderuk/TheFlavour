@@ -6,7 +6,7 @@
 <body class="home page page-id-642 page-template-default">
     <div id="page" class="hfeed site">
         <div class="main-top">
-            <div class="slider-full"> 
+            <div class="slider-full">
                 <!-- Loading Spinner -->
                 <div class="spinner">
                     <div class="wBall" id="wBall_1">
@@ -35,11 +35,11 @@
                 <div class="main-carousel invisible">
                     <div id="myCarousel91" class="carousel slide">
                         <div class="carousel-inner">
-                            @for (int i = 0; i < Model.ImageNames.Count; i++)
+                            @for (int i = 0; i < Model.ImagePath.Count; i++)
                             {
                                 if (i == 0)
                                 {
-                                    <div class="item active" style="background-image:url('../../images/Home/Slides/@Model.ImageNames[i]');">
+                                    <div class="item active" style="background-image:url(@Model.ImagePath[i]);">
                                         <div class="title-wrap">
                                             <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
                                                 <div class="slider-title-before">
@@ -57,7 +57,7 @@
                                 }
                                 else
                                 {
-                                    <div class="item" style="background-image:url('../../images/Home/Slides/@Model.ImageNames[i]');">
+                                    <div class="item" style="background-image:url(@Model.ImagePath[i]);">
                                         <div class="title-wrap">
                                             <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
                                                 <div class="slider-title-before">
@@ -79,7 +79,7 @@
                         <!--Slider Navigation-->
                         <div class="post-navigation">
                             <ol class="carousel-indicators">
-                                @for (int i = 0; i < Model.ImageNames.Count; i++)
+                                @for (int i = 0; i < Model.ImagePath.Count; i++)
                                 {
                                     if (i == 0)
                                     {
@@ -147,8 +147,8 @@
             animateSlideEnd();
         });
     });
-        </script>    
-        
+        </script>
+
         @Html.Partial("_CommonNav")
         <div id="main" class="site-main blog-details" role="main">
             <div class="container full-width">
@@ -332,7 +332,7 @@
                         <a id="testimonials-prev829" class="prev" href="#"><i class="tficon-shevron-left"></i></a><br />
                         <a id="testimonials-next829" class="next" href="#"><i class="tficon-shevron-right"></i></a>
                     </p>
-                 </div>
+                </div>
             </div>
         </section>
         <p>
@@ -419,136 +419,8 @@
                 </div>
             </div>
         </section>
-        <section class="main-top">
-            <div class="see-location ">
-                <div class="row">
-                    <div id="contact_map190" class="map contact_map"></div>
-                    <p>
-                        <script>
-                    jQuery(window).ready(function () {
-                        jQuery("#contact_map190").gMap({
-                            markers: [{
-                                latitude: 40.715417,
-                                longitude: -73.99305600000002,
-                                title: "Company Name LTD",
-                                html: "<strong>Company Name HQ</strong> <br> 880 Sunset Boulevard, San Diego, CA, United States <br>Tel.: 555-522.326",
-                                popup: false,
-                                icon: {
-                                    image: "http://demo.themefuse.com/theflavour/wp-content/themes/theflavour-parent/images/icons/gmap_icon.png",
-                                    iconsize: [25, 34],
-                                    iconanchor: [12,34],
-                                    infowindowanchor: [0, 0]
-                                }
-                            }],
-                            zoom: 15,
-                            scrollwheel: false,
-                            maptype: google.maps.MapTypeId.ROADMAP
-                        });
-                    });
-                        </script>
-                </div>
-                <div class="wrapp-see-location">
-                    <div class="container">
-                        <div class="col-sm-8 col-sm-offset-2">
-                            <h3 class="title-before">how to arrive</h3>
-                            <h1 class="title">Restaurant Location</h1>
-                            <h2 class="title-after">880 Sunset Boulevard, San Diego, CA, United States</h2>
-                            <p>
-                                <a href="#" class="btn btn-black btn-see-location" id="btn-see-location"><span>SEE location on map</span></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <p>
-                    <script>
-            jQuery(".btn-see-location").click(function (e) {
-                e.preventDefault();
-                jQuery(this).parents(".wrapp-see-location").fadeOut("slow");
-            });
-                    </script>
-            </div>
-        </section>
-        <footer class="footer">
-            <div class="row footer-nav">
-                <div class="container">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <nav id="site-navigation3" class="site-navigation">
-                            <ul id="menu-footer" class="">
-                                <li id="menu-item-903" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-642 current_page_item menu-item-903"><a href="http://demo.themefuse.com/theflavour/">Home</a></li>
-                                <li id="menu-item-838" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-838"><a href="http://demo.themefuse.com/theflavour/?list-menus=food-menu">Menu</a></li>
-                                <li id="menu-item-904" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-904"><a href="http://demo.themefuse.com/theflavour/?page_id=452">About Us</a></li>
-                                <li id="menu-item-905" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-905"><a href="http://demo.themefuse.com/theflavour/?page_id=617">Gallery</a></li>
-                                <li id="menu-item-839" class="menu-item menu-item-type-taxonomy menu-item-object-events menu-item-839"><a href="http://demo.themefuse.com/theflavour/?events=all-events">Events</a></li>
-                                <li id="menu-item-906" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-906"><a href="http://demo.themefuse.com/theflavour/?page_id=462">Reservation</a></li>
-                                <li id="menu-item-840" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-840"><a href="http://demo.themefuse.com/theflavour/?cat=2">Blog</a></li>
-                                <li id="menu-item-841" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-841"><a href="#">Pages</a></li>
-                                <li id="menu-item-907" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-907"><a href="http://demo.themefuse.com/theflavour/?page_id=439">Contact</a></li>
-                            </ul>
-                        </nav>                    <!--Footer Social-->
-                        <div class="footer-socials">
-                            <span class="social-icons">
-                                <a href="https://www.facebook.com/themefuse" title="Facebook" target="_blank">
-                                    <i class="tficon-facebook"></i>
-                                </a>
-                                <a href="https://twitter.com/themefuse" title="Twitter" target="_blank">
-                                    <i class="tficon-twitter"></i>
-                                </a>
-                                <a href="http://www.pinterest.com/search/pins/?q=themefuse" title="Pinterest" target="_blank">
-                                    <i class="tficon-pinterest"></i>
-                                </a>
-                                <a href="http://www.tripadvisor.com/" title="Trip Advisor" target="_blank">
-                                    <i class="tficon-trip-advisor"></i>
-                                </a>
-                                <a href="http://instagram.com/" title="Instagram" target="_blank">
-                                    <i class="tficon-instagram"></i>
-                                </a>
-                            </span>
-                        </div>
-                        <!--Copyright-->
-                        <div class="copyright">
-                            Restaurant Wordpress theme © 2014 Made by <a rel="nofollow" href="http://themefuse.com" target="_blank">ThemeFuse</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @Html.Partial("_BottomPart")
         <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
     </div><!-- /#page-->
-    <script type='text/javascript'>
-        /* <![CDATA[ */
-        var tf_calendar = {"up_button":"up","down_button":"down","datepicker_opts":{"firstDay":0,"currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesMin":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesShort":["Su","Mo","Tu","We","Th","Fr","Sa"],"weekHeader":"Wk","prevText":"PREVIOUS &#77;&#79;NTH","nextText":"NEXT &#77;&#79;NTH","dateFormat":"March 13, 2016"}};
-        /* ]]> */
-    </script>
-    
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-57682328-1', 'themefuse.com');
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
-
-        // Load the plugin.
-        ga('require', 'linker');
-
-        // Define which domains to autoLink.
-        ga('linker:autoLink', ['fastspring.com']);
-    </script>
-
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        var google_conversion_id = 957922173;
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-        /* ]]> */
-    </script>
-    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-    </script>
-    <noscript>
-        <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/957922173/?value=0&guid=ON&script=0" />
-        </div>
-    </noscript>
+    @Html.Partial("_GoogleMapPart")
 </body>

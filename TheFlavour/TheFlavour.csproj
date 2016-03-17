@@ -84,6 +84,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -204,14 +206,42 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Food.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Menu.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TFModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TFModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TFModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TFModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TFModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ContactForm.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Dishes.mdf" />
+    <Content Include="App_Data\Dishes_log.ldf">
+      <DependentUpon>Dishes.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\contact-form.css" />
@@ -236,6 +266,37 @@
     <Content Include="images\Home\Slides\slide5.jpg" />
     <Content Include="images\Home\Slides\slide6.jpg" />
     <Content Include="images\Home\Slides\slide7.jpg" />
+    <Content Include="images\Menu\Food\Burgers\burger.png" />
+    <Content Include="images\Menu\Food\Burgers\dixie.jpg" />
+    <Content Include="images\Menu\Food\Burgers\old_town.jpg" />
+    <Content Include="images\Menu\Food\Burgers\royal_deluxe.jpg" />
+    <Content Include="images\Menu\Food\Main\blackened_c.jpg" />
+    <Content Include="images\Menu\Food\Main\charleston_c.jpg" />
+    <Content Include="images\Menu\Food\Main\drunken_pot.jpg" />
+    <Content Include="images\Menu\Food\Main\southside_m.jpg" />
+    <Content Include="images\Menu\Food\Pizza\arghinare.jpg" />
+    <Content Include="images\Menu\Food\Pizza\formaggi.jpg" />
+    <Content Include="images\Menu\Food\Pizza\margherita.jpg" />
+    <Content Include="images\Menu\Food\Pizza\pizza.png" />
+    <Content Include="images\Menu\Food\Salads\chicken_caesar.jpg" />
+    <Content Include="images\Menu\Food\Salads\cobb_egg.jpg" />
+    <Content Include="images\Menu\Food\Salads\salads.png" />
+    <Content Include="images\Menu\Food\Salads\southside_seafood.jpg" />
+    <Content Include="images\Menu\Food\Starters\artichoke_dip.jpg" />
+    <Content Include="images\Menu\Food\Starters\boardinghouse.jpg" />
+    <Content Include="images\Menu\Food\Starters\jumbo_sandwich.jpg" />
+    <Content Include="images\Menu\Food\Starters\new_orleans_shrimp.jpg" />
+    <Content Include="images\Menu\Food\Starters\starters.png" />
+    <Content Include="Models\TFModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TFModel.edmx</DependentUpon>
+      <LastGenOutput>TFModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TFModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TFModel.edmx</DependentUpon>
+      <LastGenOutput>TFModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -248,6 +309,13 @@
     <Content Include="fonts\Icons\flavour.woff" />
     <Content Include="fonts\Icons\flavour.ttf" />
     <Content Include="fonts\Icons\flavour.eot" />
+    <EntityDeploy Include="Models\TFModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TFModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TFModel.edmx.diagram">
+      <DependentUpon>TFModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -290,9 +358,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_CommonNav.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Shared\_GoogleMapPart.cshtml" />
+    <Content Include="Views\Shared\_BottomPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="images\Menu\Deserts\" />
+    <Folder Include="images\Menu\Drinks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -304,6 +376,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

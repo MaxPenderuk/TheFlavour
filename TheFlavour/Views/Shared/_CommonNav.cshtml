@@ -6,11 +6,17 @@
                     <nav id="site-navigation" class="site-navigation left">
                         <ul id="menu-primary" class="nav-menu clearfix">
                             <li id="menu-item-851" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-has-children menu-item-851">
-                                <a href="http://demo.themefuse.com/theflavour/?list-menus=food-menu">Menu</a>
+                                @Html.ActionLink("Menu", "Menu", "Home", new { Id = 1 }, null)
                                 <ul/ class="submenu-1" id="submenu-1" />
-                            <li id="menu-item-837" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-837"><a href="http://demo.themefuse.com/theflavour/?list-menus=food-menu">Food menu</a></li>
-                            <li id="menu-item-835" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-835"><a href="http://demo.themefuse.com/theflavour/?list-menus=desert-menu">Deserts Menu</a></li>
-                            <li id="menu-item-836" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-836"><a href="http://demo.themefuse.com/theflavour/?list-menus=drinks-menu">Drinks menu</a></li>
+                            <li id="menu-item-837" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-837">
+                                @Html.ActionLink("Food menu", "Menu", "Home", new { Id = 1 }, null)
+                            </li>
+                            <li id="menu-item-835" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-835">
+                                @Html.ActionLink("Deserts menu", "Menu", "Home", new { Id = 2 }, null)
+                            </li>
+                            <li id="menu-item-836" class="menu-item menu-item-type-taxonomy menu-item-object-list-menus menu-item-836">
+                                @Html.ActionLink("Drinks menu", "Menu", "Home", new { Id = 3 }, null)
+                            </li>
                         </ul>
                         </li>
                         <li id="menu-item-898" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children mega-nav menu-item-898">
