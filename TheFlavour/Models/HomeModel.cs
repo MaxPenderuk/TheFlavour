@@ -18,7 +18,8 @@ namespace TheFlavour.Models
             this.Content = content;
         }
     }
-    
+
+   
     public class HomeModel
     {
         public string PhoneNumber { get; set; }

@@ -236,6 +236,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ContactForm.cs" />
+    <Compile Include="ViewModels\Footer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Dishes.mdf" />
@@ -266,6 +267,7 @@
     <Content Include="images\Home\Slides\slide5.jpg" />
     <Content Include="images\Home\Slides\slide6.jpg" />
     <Content Include="images\Home\Slides\slide7.jpg" />
+    <Content Include="images\Menu\Food\bg.jpg" />
     <Content Include="images\Menu\Food\Burgers\burger.png" />
     <Content Include="images\Menu\Food\Burgers\dixie.jpg" />
     <Content Include="images\Menu\Food\Burgers\old_town.jpg" />
@@ -363,8 +365,14 @@
     <Content Include="Views\Shared\_BottomPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\Menu\Deserts\" />
-    <Folder Include="images\Menu\Drinks\" />
+    <Folder Include="images\Menu\Deserts\Cakes\" />
+    <Folder Include="images\Menu\Deserts\FruitSalads\" />
+    <Folder Include="images\Menu\Deserts\Icecream\" />
+    <Folder Include="images\Menu\Drinks\Alcoholic\" />
+    <Folder Include="images\Menu\Drinks\Cocktails\" />
+    <Folder Include="images\Menu\Drinks\Coffee\" />
+    <Folder Include="images\Menu\Drinks\SoftDrinks\" />
+    <Folder Include="images\Menu\Drinks\WineBeer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

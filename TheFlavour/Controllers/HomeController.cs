@@ -24,7 +24,7 @@ namespace TheFlavour.Controllers
                 Offers = new List<SpecialOffer>()
             };
 
-            // Path to images we need for slider.
+            // Path to the images we need for slider.
             string filePath = Server.MapPath(@"~/images/Home/Slides/");
             DirectoryInfo imgDir = new DirectoryInfo(filePath);
             
@@ -53,6 +53,7 @@ namespace TheFlavour.Controllers
                 ));
 
             homeModel.PhoneNumber = "0844.335.1211";
+            
 
             return View(homeModel);
         }
@@ -108,12 +109,24 @@ namespace TheFlavour.Controllers
 
         public ActionResult Menu(int? Id)
         {
-            if (Id == 1)
-            {
-                var foodMenu = db.Categories.Where(x => x.Menu_ID == Id).ToList();
-                
-                ViewBag.Menu = foodMenu;
-            }
+            List<Menu> curMenu = db.Menus.Where(x => x.ID == Id).ToList();
+
+            if (curMenu.Count == 0) return HttpNotFound();
+
+            // Get all types of menu we have.
+            var menu = (from row in db.Menus select row).ToList();
+
+            // Pick all except the selected one, 'cause we wanna
+            // use it like the links to the other menu types.
+            var exceptId = menu.Except(curMenu);
+
+            // The name of menu type and pic that matches it.
+            ViewBag.LogoT = new Tuple<string, string>
+                    (curMenu.First().Name, "http://" + Request.Url.Authority + curMenu.First().LogoLink);
+
+            ViewBag.Menu = curMenu.First().Categories;
+            ViewBag.ExceptCur = exceptId;
+
             return View();
         }
         

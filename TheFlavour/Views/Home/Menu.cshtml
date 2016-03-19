@@ -7,9 +7,9 @@
     @Html.Partial("_CommonNav")
     <section class="main-top">
         <div class="main-slider">
-            <div class="wrap-main-slider" style="background-image:url(http://demo.themefuse.com/theflavour/wp-content/uploads/2014/04/bg.jpg);">
+            <div class="wrap-main-slider" style="background-image:url(@ViewBag.LogoT.Item2);">
                 <div class="main-slider-content">
-                    <h1 class="main-slider-title">Food menu</h1>
+                    <h1 class="main-slider-title">@ViewBag.LogoT.Item1</h1>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2">
@@ -56,20 +56,36 @@
                             <ul>
                                 @foreach (var i in item.Foods)
                                 {
-                                    <li>
-                                        <div class="dishes-thumbnail">
-                                            <a title="@i.Name" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + i.ImageLink)"><img width="147" height="150" src="http://@(Request.Url.Authority + i.ImageLink)" class="attachment-thumbnail wp-post-image" /></a>
-                                        </div>
-                                        <div class="dishes-content">
-                                            <h2 class="dishes-content-title">
-                                                <span>
+                                    if (i.ImageLink == null)
+                                    {
+                                        <li class="drinks_without_image">
+                                            <div class="dishes-content">
+                                                <h2 class="dishes-content-title">
                                                     @i.Name
-                                                </span>
+                                                    <div class="menu_excerpt"><p><p>@i.Description</p></p></div>
+                                                </h2>
                                                 <span class="price">@Html.Raw(i.Price)</span>
-                                            </h2>
-                                            <p>@i.Description</p>
-                                        </div>
-                                    </li>
+                                            </div>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <div class="dishes-thumbnail">
+                                                <a title="@i.Name" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + i.ImageLink)"><img width="147" height="150" src="http://@(Request.Url.Authority + i.ImageLink)" class="attachment-thumbnail wp-post-image" /></a>
+                                            </div>
+
+                                            <div class="dishes-content">
+                                                <h2 class="dishes-content-title">
+                                                    <span>
+                                                        @i.Name
+                                                    </span>
+                                                    <span class="price">@Html.Raw(i.Price)</span>
+                                                </h2>
+                                                <p>@i.Description</p>
+                                            </div>
+                                        </li>
+                                    }
                                 }
                             </ul>
                         </section>
@@ -80,10 +96,14 @@
     </div><!-- /#main-->
 
     <section class="section-button main-top">
-        <a href="http://demo.themefuse.com/theflavour?list-menus=desert-menu" class="btn btn-black-transparent" target="_self"><span>VIEW Desert MENU</span></a>
-        <a href="http://demo.themefuse.com/theflavour?list-menus=drinks-menu" class="btn btn-black-transparent" target="_self"><span>VIEW DRINKS MENU</span></a>
+        <!--To render links for the other menu types-->
+       @foreach (var item in ViewBag.ExceptCur)
+       {
+        <a href="/Home/Menu/@item.ID" class="btn btn-black-transparent" target="_self"><span>VIEW @item.Name</span></a>
+       }
     </section>
-    @Html.Partial("_BottomPart")
+    <!--The bottom part of the page we wanna render with map-->
+    @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = true })
     <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>r
 </div><!-- /#page-->
 @Html.Partial("_GoogleMapPart")

@@ -27,6 +27,7 @@
     <EntitySetMapping Name="Menus">
       <EntityTypeMapping TypeName="DishesModel.Menu">
         <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="LogoLink" ColumnName="LogoLink" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
