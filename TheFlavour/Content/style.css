@@ -3572,7 +3572,7 @@ li.drinks_without_image {
   top: 5px;
 }
 div.dark_square .pp_close {
-  background: url(images/lightbox-closebtn.png) no-repeat !important;
+  background: url(../images/prettyPhoto/light_box/lightbox-closebtn.png) no-repeat !important;
   width: 25px !important;
   height: 25px !important;
 }
@@ -3595,16 +3595,16 @@ div.dark_square .pp_details .pp_nav {
   display: none;
 }
 a.pp_next {
-  background: url(images/lightbox-nextbtn.png) 10000px 10000px no-repeat !important;
+  background: url(../images/prettyPhoto/light_box/lightbox-nextbtn.png) 10000px 10000px no-repeat !important;
 }
 div.dark_square .pp_next:hover {
-  background: url(images/lightbox-nextbtn.png) right 20px center no-repeat !important;
+  background: url(../images/prettyPhoto/light_box/lightbox-nextbtn.png) right 20px center no-repeat !important;
 }
 a.pp_previous {
-  background: url(images/lightbox-prevbtn.png) 10000px 10000px no-repeat !important;
+  background: url(../images/prettyPhoto/light_box/lightbox-prevbtn.png) 10000px 10000px no-repeat !important;
 }
 div.dark_square .pp_previous:hover {
-  background: url(images/lightbox-prevbtn.png) left 20px center no-repeat !important;
+  background: url(../images/prettyPhoto/light_box/lightbox-prevbtn.png) left 20px center no-repeat !important;
 }
 /*Responsiv*/
 /*Screen 1024px*/

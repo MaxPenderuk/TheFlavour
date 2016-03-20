@@ -1,0 +1,95 @@
+﻿
+@{
+    Layout = "Events";
+}
+
+    <div id="page" class="hfeed site">
+       <div id="main" class="site-main" role="main">
+            <h2 class="page-title-before">checK out our</h2><h1 class="page-title">Events Calendar</h1>    <div class="container full-width">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="events">
+                            <div id="calendar"></div>
+                        </section>
+                    </div><!-- /.col-sm-12-->
+
+                </div><!-- /.row-->
+            </div><!-- /.container-->
+        </div><!-- /#main-->        
+
+        <input type="hidden" value="17" name="current_event" />
+        <div class="col-sm-12 upcoming_events_wrap">
+            <div class="container">
+                <div class="row">
+                    <section class="next-events">
+                        <div class="row">
+                            <h2 class="page-title-before">...or browse the next</h2>
+                            <h1 class="page-title">Upcoming Events</h1>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div><div class="clear"></div>
+        <section class="testimonials testimonials861 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h3 class="testimonials-title-before">TESTIMONIALS FROM OUR</h3>
+                        <h1 class="testimonials-title">Customers & Friends</h1>
+                        <div class="testimonials-slider">
+                            <span class="tficon-apostroufe"></span>
+                            <ul id="testimonials861">
+                                <li data-testimonial="1">
+                                    <div class="testimonials-text"><p>"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters."</p></div>
+                                    <div class="testimonials-author"><span>Will Smith</span></div><div class="testimonials-organization"><span>review from</span> <a href="http://themefuse.com/">Themefuse</a></div>
+                                </li>
+                                <li data-testimonial="1">
+                                    <div class="testimonials-text"><p>"Themefuse themes are like designer clothes for yor website. I'd get a whole closet full of lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullarem in dui mauris. Vivamus kissterio hendrerit arcusimos yupinos them."</p></div>
+                                    <div class="testimonials-author"><span>Michael Freemon</span></div><div class="testimonials-organization"><span>review from</span> <a href="#">Trip Advisor</a></div>
+                                </li>
+                            </ul>
+                            <div id="testimonials-controls861" class="testimonials-controls"></div>
+                        </div>
+                    </div>
+                    <a id="testimonials-prev861" class="prev" href="#"><i class="tficon-shevron-left"></i></a>
+                    <a id="testimonials-next861" class="next" href="#"><i class="tficon-shevron-right"></i></a>
+                </div>
+            </div>
+        </section>
+        <script>
+            jQuery(document).ready(function() {
+                function testimonialsInit() {
+                    jQuery("#testimonials861").carouFredSel({
+                        swipe : {
+                            onTouch: true
+                        },
+                        next : "#testimonials-next861",
+                        prev : "#testimonials-prev861",
+                        pagination : "#testimonials-controls861",
+                        infinite: false,
+                        items: 1,
+                        auto: {
+                            play: true,
+                            timeoutDuration: 10000
+                        },
+                        scroll: {
+                            items : 1,
+                            fx: "crossfade",
+                            easing: "linear",
+                            pauseOnHover: true,
+                            duration: 300
+                        }
+                    });
+                }
+                testimonialsInit();
+                jQuery(window).resize(function() {
+                    testimonialsInit();
+                });
+                var tControlsHeight = jQuery(".testimonials-controls").innerHeight();
+                jQuery(".testimonials-controls").css("margin-top" , -tControlsHeight/2);
+            });
+        </script>
+        @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = true })
+        <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+    </div><!-- /#page-->
+    @Html.Partial("_GoogleMapPart")

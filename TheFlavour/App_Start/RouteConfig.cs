@@ -13,9 +13,10 @@ namespace TheFlavour
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Just removed the controller name from url.
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

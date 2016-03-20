@@ -39,9 +39,9 @@ namespace TheFlavour
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/style.css",
+                      "~/Content/bootstrap.css",    
                       "~/Content/prettyPhoto.css",
+                      "~/Content/style.css",
                       "~/Content/animate.css",
                       "~/Content/cusel.css",
                       "~/Content/shCore.css",
