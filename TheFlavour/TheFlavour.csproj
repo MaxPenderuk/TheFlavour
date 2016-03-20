@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -206,10 +214,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Article.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Author.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>TFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Food.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
       <DependentUpon>TFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HomeModel.cs" />
@@ -249,6 +266,7 @@
     <Content Include="Content\cusel.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\googleapis-fonts.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\prettyPhoto.css" />
     <Content Include="Content\shCore.css" />
     <Content Include="Content\shThemeDefault.css" />
@@ -256,6 +274,13 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\Blog\big_image.jpg" />
+    <Content Include="images\Blog\cooking_class.jpg" />
+    <Content Include="images\Blog\greek_yogurt.jpg" />
+    <Content Include="images\Blog\logo.jpg" />
+    <Content Include="images\Blog\rapsberry_pops.jpg" />
+    <Content Include="images\Blog\shorter_title.jpg" />
+    <Content Include="images\Blog\soy_waffles.jpg" />
     <Content Include="images\Home\bg-reservation.jpg" />
     <Content Include="images\Home\Events\offer1-200x200.jpg" />
     <Content Include="images\Home\Events\offer21-200x200.jpg" />
@@ -406,6 +431,7 @@
     <Content Include="Views\Shared\_BottomPart.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Menu\Deserts\Cakes\" />

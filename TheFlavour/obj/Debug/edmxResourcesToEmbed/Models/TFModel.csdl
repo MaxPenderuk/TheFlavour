@@ -69,5 +69,71 @@
       <End Role="Category" EntitySet="Categories" />
       <End Role="Food" EntitySet="Foods" />
     </AssociationSet>
+    <EntitySet Name="Articles" EntityType="DishesModel.Article" />
+    <EntitySet Name="Authors" EntityType="DishesModel.Author" />
+    <EntitySet Name="Groups" EntityType="DishesModel.Group" />
+    <AssociationSet Name="FK__Article__Author___5AEE82B9" Association="DishesModel.FK__Article__Author___5AEE82B9">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Article__Group_I__5BE2A6F2" Association="DishesModel.FK__Article__Group_I__5BE2A6F2">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Author_ID" Type="Int32" Nullable="false" />
+    <Property Name="Group_ID" Type="Int32" Nullable="false" />
+    <Property Name="FullText_ID" Type="Int32" />
+    <NavigationProperty Name="Author" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Article" ToRole="Author" />
+    <NavigationProperty Name="Group" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Article" ToRole="Group" />
+    <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Articles" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Author" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Articles" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Group" ToRole="Article" />
+  </EntityType>
+  <Association Name="FK__Article__Author___5AEE82B9">
+    <End Type="DishesModel.Author" Role="Author" Multiplicity="1" />
+    <End Type="DishesModel.Article" Role="Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Author_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Article__Group_I__5BE2A6F2">
+    <End Type="DishesModel.Group" Role="Group" Multiplicity="1" />
+    <End Type="DishesModel.Article" Role="Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

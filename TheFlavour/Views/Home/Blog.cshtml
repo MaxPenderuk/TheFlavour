@@ -1,0 +1,352 @@
+﻿@model PagedList.IPagedList<TheFlavour.Models.Article>
+@{
+    ViewBag.Title = "Blog";
+}
+
+<div id="page" class="hfeed site">
+    @Html.Partial("_CommonNav")
+    <section class="main-top">
+        <div class="image-section" style="background:url(../../images/Blog/logo.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h3 class="title-before">Welcome to</h3>
+                        <h1 class="title">The Kitchen Chatter</h1>
+                        <div class="text"></div>
+                    </div>
+                </div>
+                </p>
+            </div>
+        </div>
+    </section>
+    <div id="main" class="site-main blog" role="main">
+        <section class="sec-blog-categories">
+            <div class="wrapp-categories">
+                <div class="categories-slider blog">
+                    <div class="caroufredsel_wrapper">
+                        <ul id="categories-slider" class="blog-categories">
+                            @for (int i = ViewBag.Group.Count; i --> 0;)
+                            {
+                                if (ViewBag.Group[i].ID == ViewBag.GroupID)
+                                {
+                                    <li class="categories-item active">
+                                        <a href="/Blog/@ViewBag.Group[i].ID">
+                                            <div class="check-category">
+                                                <span></span>
+                                            </div>
+                                            @ViewBag.Group[i].Name
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="categories-item">
+                                        <a href="/Blog/@ViewBag.Group[i].ID">
+                                            <div class="check-category">
+                                                <span></span>
+                                            </div>
+                                            @ViewBag.Group[i].Name
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <a class="prev" id="categories-prev" href="#"><i class="tficon-shevron-left"></i></a>
+                    <a class="next" id="categories-next" href="#"><i class="tficon-shevron-right"></i></a>
+                </div>
+            </div>
+        </section>
+        <div class="container sidebar-right">
+            <div class="row">
+                <div class="col-xs-12 content-area col-sm-8" id="primary">
+                    @foreach (var item in Model)
+                    {
+                        <article class="post post-style-@item.ID">
+                            <div class="inner">
+                                @if (item.ImageLink != null)
+                                {
+                                    <a href="http://demo.themefuse.com/theflavour/?p=96" class="post-thumbnail">
+                                        <img src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                    </a>
+                                }
+                                <div class="entry-aside">
+                                    <header class="entry-header">
+                                        <div class="entry-meta">
+                                            <time class="entry-date">@item.EntryDate.ToString("MMMM dd, yyyy")</time>
+                                            <span class="author"> 
+                                                by @Html.ActionLink(item.Author.Name, "Blog", "Home", new { auth = item.Author_ID })
+                                            </span>
+                                            <span class="cat-links"> 
+                                                in @Html.ActionLink(item.Group.Name, "Blog", "Home", new { Id = item.Group.ID, @title = "View all posts in Our Recipes", @rel = "category tag" })
+                                            </span>
+                                            <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?p=96">@item.Title</a></h1>
+                                        </div>
+                                    </header>
+                                    <div class="entry-content">
+                                        <p>
+                                            @item.Content
+                                        </p>
+                                    </div>
+                                    <footer class="entry-meta">
+                                        <a href="http://demo.themefuse.com/theflavour/?p=96" class="btn btn-black-transparent btn-xs"><span>find out more</span></a>
+                                        <a href="http://demo.themefuse.com/theflavour/?p=96#comments" class="link-comment">
+                                            <span>7</span>
+                                        </a>
+                                    </footer>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                    <!-- pagination -->
+                    <nav class="navigation paging-navigation" role="navigation">
+                        <div class="pagination loop-pagination">
+                            <a class="page_prev" href="@ViewBag.Previous"><i class="tficon-shevron-left"></i></a>
+                            <div class="page-number">
+                                <span>@Model.PageNumber</span> of <span>@Model.PageCount</span>
+                            </div>
+                            <a href="@ViewBag.Next" class="page_next"><i class="tficon-shevron-right"></i></a>
+                        </div>
+                    </nav>
+                    <!-- /pagination -->
+                </div><!-- /#primary-->
+
+                <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12 sidebar widget-area" id="secondary">
+                    <div class="inner">
+                        <div class="widget widget-search">
+                            <h3 class="widget-title">SEARCH BLOG</h3>
+                            <form method="get" id="searchform" action="http://demo.themefuse.com/theflavour/">
+                                <input name="s" id="s" type="text" class="inputtext" placeholder="ENTER KEYWORD" name="search" value="">
+                                <button type="submit" class="btn btn-search"><span class="tficon-row"></span></button>
+                            </form>
+
+                        </div><div class="widget widget-freshpost">
+                            <h3 class="widget-title">FRESH POSTS</h3>
+
+                            <ul class="side-postlist">
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=96"><span>Cooking Class Tuesdays</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=114"><span>Whole Wheat &#038; Soy Waffles With Raspberries</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=111"><span>Pure Raspberry Pops</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=829"><span>Fresh from our Blog</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=108"><span>Greek Yogurt Cupcakes with Blackberry Frosting</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=106"><span>No image Post: Lemon Chocolate Cheesecake Pots And How To Make Lemon Powder</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=103"><span>Big Image Post: Lemon Chocolate Cheesecake Pots And How To Make Lemon Powder</span></a></li>
+                                <li><a href="http://demo.themefuse.com/theflavour/?p=117"><span>Big Image Post: Shorter Title Above</span></a></li>
+                            </ul>
+                            <a href="#" class="btn btn-orange btn-freshpost"><span>subscribe to rss feed</span></a>
+
+                        </div><div class="widget widget-most-comment">
+                            <h3 class="widget-title">MOST COMMENTED</h3>
+                            <ul class="side-postlist">
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=96"><div class="icon"><strong>7</strong></div><span>Cooking Class Tuesdays</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=117"><div class="icon"><strong>0</strong></div><span>Big Image Post: Shorter Title Above</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=103"><div class="icon"><strong>0</strong></div><span>Big Image Post: Lemon Chocolate Cheesecake Pots And How To Make Lemon Powder</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=106"><div class="icon"><strong>0</strong></div><span>No image Post: Lemon Chocolate Cheesecake Pots And How To Make Lemon Powder</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=108"><div class="icon"><strong>0</strong></div><span>Greek Yogurt Cupcakes with Blackberry Frosting</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=829"><div class="icon"><strong>0</strong></div><span>Fresh from our Blog</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=111"><div class="icon"><strong>0</strong></div><span>Pure Raspberry Pops</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://demo.themefuse.com/theflavour/?p=114"><div class="icon"><strong>0</strong></div><span>Whole Wheat &#038; Soy Waffles With Raspberries</span></a>
+                                </li>
+                            </ul>
+                        </div><div class="widget widget_newsletter newsletter_subscription_box">
+                            <h3 class="widget-title-before">Stay in the loop</h3>
+
+                            <h1 class="widget-title">newsletter sign-up</h1>
+
+                            <div class="widget-content"><p>Want to get the latest news & promos?</p></div>
+
+                            <form action="#" method="post" class="newsletter_subscription_form">
+                                <input type="text" value="" name="newsletter" class="newsletter_subscription_email inputtext" placeholder="Enter Your Email" />
+                                <button type="submit" class="btn btn-newsletter newsletter_subscription_submit" value="Send" title="Subscribe"><span class="tficon-row"></span></button>
+                            </form>
+
+                            <div class="newsletter_subscription_messages before-text" style="margin-left: 10px">
+                                <div class="newsletter_subscription_message_success">
+                                    Thank you for your subscription.
+                                </div>
+                                <div class="newsletter_subscription_message_wrong_email">
+                                    Your email format is wrong!
+                                </div>
+                                <div class="newsletter_subscription_message_failed">
+                                    Sad, but we couldn't add you to our mailing list ATM.
+                                </div>
+                            </div>
+                            <div class="newsletter_subscription_ajax" style="margin-left: 10px">Loading...</div>
+                        </div><div class="widget widget-tagcloud">
+                            <h3 class="widget-title">Tag Cloud</h3><div class="tagcloud">
+                                <a href='http://demo.themefuse.com/theflavour/?tag=desert' class='tag-link-8' title='7 topics' style='font-size: 8pt;'>desert</a>
+                                <a href='http://demo.themefuse.com/theflavour/?tag=meringue' class='tag-link-9' title='7 topics' style='font-size: 8pt;'>meringue</a>
+                                <a href='http://demo.themefuse.com/theflavour/?tag=recipe' class='tag-link-10' title='7 topics' style='font-size: 8pt;'>Recipe</a>
+                                <a href='http://demo.themefuse.com/theflavour/?tag=sweet-sour' class='tag-link-11' title='7 topics' style='font-size: 8pt;'>Sweet &amp; Sour</a>
+                            </div>
+                        </div><div class="widget widget-instagram">
+                            <h3 class="widget-title">INSTAGRAM</h3>
+                            <div class="instagram">
+                                <ul>
+                                    <li>
+                                        <a href="http://instagram.com/p/BAkb8uey1R4">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/e35/12407399_168604616837410_1397289231_n.jpg?ig_cache_key=MTE2MzE3NzUyNDEwMTYwMDM3Ng%3D%3D.2">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://instagram.com/p/BAeqLQBy1eh">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/e35/10903783_571879206293222_999229079_n.jpg?ig_cache_key=MTE2MTU1MTI0NDk4NTg0OTc2MQ%3D%3D.2">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://instagram.com/p/BAVKbqES1Tj">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/e35/12479250_1683865331897590_1883964132_n.jpg?ig_cache_key=MTE1ODg3ODM2MDE3Nzk1NjA2Nw%3D%3D.2">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://instagram.com/p/BATC-t1y1Wr">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/e35/12383338_768782093227602_925944575_n.jpg?ig_cache_key=MTE1ODI4MjYzNTA4NTgyOTU0Nw%3D%3D.2">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://instagram.com/p/BARb6GQS1aZ">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/s480x480/e35/12479344_996866977041610_567243173_n.jpg?ig_cache_key=MTE1NzgyOTMxODkxMjIwMjM5Mw%3D%3D.2">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://instagram.com/p/_rPUshS1aV">
+                                            <img src="https://scontent.cdninstagram.com/t51.2885-15/e35/12354054_1668687290066352_362380836_n.jpg?ig_cache_key=MTE0NzA3NzkyMjk4NjM1MDIyOQ%3D%3D.2">
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a href="http://instagram.com/angler_restaurant" class="btn btn-black btn-instagram"><span>follow on instagram</span></a>
+                            </div>
+                        </div><div id="text-text-2" class="widget widget-text ">
+                            <h3 class="widget-title">About</h3>        <div class="aboutw">
+                                <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor nequeu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim hasell moytrirolestie magna non lorem ipsum dolor site amet retituros est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+                                <div class="social-links">
+                                    <span class="social-icons">
+                                        <a href="https://www.facebook.com/themefuse" title="Facebook" target="_blank">
+                                            <i class="tficon-facebook"></i>
+                                        </a>
+                                        <a href="https://twitter.com/themefuse" title="Twitter" target="_blank">
+                                            <i class="tficon-twitter"></i>
+                                        </a>
+                                        <a href="http://www.pinterest.com/search/pins/?q=themefuse" title="Pinterest" target="_blank">
+                                            <i class="tficon-pinterest"></i>
+                                        </a>
+                                        <a href="http://www.tripadvisor.com/" title="Trip Advisor" target="_blank">
+                                            <i class="tficon-trip-advisor"></i>
+                                        </a>
+                                        <a href="http://instagram.com/" title="Instagram" target="_blank">
+                                            <i class="tficon-instagram"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><div id="archives-archives-2" class="widget widget-archives">
+                            <h3 class="widget-title">Archives</h3>            <div class="archives">
+                                <ul>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201406'>June 2014</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201404'>April 2014</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201304'>April 2013</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201303'>March 2013</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201204'>April 2012</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201104'>April 2011</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=201004'>April 2010</a></li>
+                                    <li><a href='http://demo.themefuse.com/theflavour/?m=200902'>February 2009</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--/ .inner -->
+                </div><!--/ #secondary -->
+
+            </div><!-- /.row-->
+        </div><!-- /.container-->
+    </div><!-- /#main-->
+
+    <section class="testimonials testimonials815 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h3 class="testimonials-title-before">TESTIMONIALS FROM OUR</h3>
+                    <h1 class="testimonials-title">Customers &#038; Friends</h1>
+                    <div class="testimonials-slider">
+                        <span class="tficon-apostroufe"></span></p>
+                        <ul id="testimonials815">
+                            <li data-testimonial="1">
+                                <div class="testimonials-text">
+                                    <p>&#8220;It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.&#8221;</p>
+                                </div>
+                                <div class="testimonials-author"><span>Will Smith</span></div>
+                                <div class="testimonials-organization"><span>review from</span> <a href="http://themefuse.com/">Themefuse</a></div>
+                            </li>
+                            <li data-testimonial="1">
+                                <div class="testimonials-text">
+                                    <p>&#8220;Themefuse themes are like designer clothes for yor website. I&#8217;d get a whole closet full of lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullarem in dui mauris. Vivamus kissterio hendrerit arcusimos yupinos them.&#8221;</p>
+                                </div>
+                                <div class="testimonials-author"><span>Michael Freemon</span></div>
+                                <div class="testimonials-organization"><span>review from</span> <a href="#">Trip Advisor</a></div>
+                            </li>
+                        </ul>
+                        <div id="testimonials-controls815" class="testimonials-controls"></div>
+                        </p>
+                    </div>
+                    </p>
+                </div>
+                <p>
+                    <a id="testimonials-prev815" class="prev" href="#"><i class="tficon-shevron-left"></i></a><br />
+                    <a id="testimonials-next815" class="next" href="#"><i class="tficon-shevron-right"></i></a>
+            </div>
+            </p>
+        </div>
+    </section>
+    <p>
+        <script>
+            jQuery(document).ready(function () {
+                function testimonialsInit() {
+                    jQuery("#testimonials815").carouFredSel({
+                        swipe: {
+                            onTouch: true
+                        },
+                        next: "#testimonials-next815",
+                        prev: "#testimonials-prev815",
+                        pagination: "#testimonials-controls815",
+                        infinite: false,
+                        items: 1,
+                        auto: {
+                            play: true,
+                            timeoutDuration: 10000
+                        },
+                        scroll: {
+                            items: 1,
+                            fx: "crossfade",
+                            easing: "linear",
+                            pauseOnHover: true,
+                            duration: 300
+                        }
+                    });
+                }
+                testimonialsInit();
+                jQuery(window).resize(function () {
+                    testimonialsInit();
+                });
+                var tControlsHeight = jQuery(".testimonials-controls").innerHeight();
+                jQuery(".testimonials-controls").css("margin-top", -tControlsHeight / 2);
+            });
+        </script>
+    </p>
+    @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = false })
+    <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+</div><!-- /#page-->
+@Html.Partial("_GoogleMapPart")

@@ -82,3 +82,7 @@ c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlav
 c:\users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\obj\Debug\TheFlavour.pdb
 C:\Users\jaspe\OneDrive\Documents\Visual Studio 2015\Projects\TheFlavour\TheFlavour\bin\RestSharp.dll
 C:\Users\jaspe\OneDrive\Documents\Visual Studio 2015\Projects\TheFlavour\TheFlavour\bin\RestSharp.xml
+C:\Users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\bin\PagedList.dll
+C:\Users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\bin\PagedList.Mvc.dll
+C:\Users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\bin\PagedList.xml
+C:\Users\jaspe\onedrive\documents\visual studio 2015\Projects\TheFlavour\TheFlavour\bin\PagedList.Mvc.xml

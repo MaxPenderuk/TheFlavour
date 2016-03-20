@@ -1,5 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DishesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="EntryDate" Type="date" Nullable="false" />
+    <Property Name="Author_ID" Type="int" Nullable="false" />
+    <Property Name="Group_ID" Type="int" Nullable="false" />
+    <Property Name="FullText_ID" Type="int" />
+    <Property Name="ImageLink" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="ID" />
@@ -21,6 +41,13 @@
     <Property Name="Category_ID" Type="int" />
     <Property Name="ImageLink" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="Menu">
     <Key>
       <PropertyRef Name="ID" />
@@ -29,6 +56,30 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="LogoLink" Type="nvarchar(max)" />
   </EntityType>
+  <Association Name="FK__Article__Author___5AEE82B9">
+    <End Role="Author" Type="Self.Author" Multiplicity="1" />
+    <End Role="Article" Type="Self.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Author_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Article__Group_I__5BE2A6F2">
+    <End Role="Group" Type="Self.Group" Multiplicity="1" />
+    <End Role="Article" Type="Self.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Category__Menu_I__22AA2996">
     <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
     <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -54,9 +105,20 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DishesModelStoreContainer">
+    <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Article__Author___5AEE82B9" Association="Self.FK__Article__Author___5AEE82B9">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Article__Group_I__5BE2A6F2" Association="Self.FK__Article__Group_I__5BE2A6F2">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
     <AssociationSet Name="FK__Category__Menu_I__22AA2996" Association="Self.FK__Category__Menu_I__22AA2996">
       <End Role="Menu" EntitySet="Menu" />
       <End Role="Category" EntitySet="Category" />

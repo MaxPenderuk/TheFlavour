@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DishesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="EntryDate" Type="date" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
+          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="FullText_ID" Type="int" />
+          <Property Name="ImageLink" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -26,6 +46,13 @@
           <Property Name="Category_ID" Type="int" />
           <Property Name="ImageLink" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="ID" />
@@ -34,6 +61,30 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LogoLink" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK__Article__Author___5AEE82B9">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__Group_I__5BE2A6F2">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Article" Type="Self.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Category__Menu_I__22AA2996">
           <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -59,9 +110,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DishesModelStoreContainer">
+          <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Article__Author___5AEE82B9" Association="Self.FK__Article__Author___5AEE82B9">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__Group_I__5BE2A6F2" Association="Self.FK__Article__Group_I__5BE2A6F2">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
           <AssociationSet Name="FK__Category__Menu_I__22AA2996" Association="Self.FK__Category__Menu_I__22AA2996">
             <End Role="Menu" EntitySet="Menu" />
             <End Role="Category" EntitySet="Category" />
@@ -144,7 +206,73 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Food" EntitySet="Foods" />
           </AssociationSet>
+          <EntitySet Name="Articles" EntityType="DishesModel.Article" />
+          <EntitySet Name="Authors" EntityType="DishesModel.Author" />
+          <EntitySet Name="Groups" EntityType="DishesModel.Group" />
+          <AssociationSet Name="FK__Article__Author___5AEE82B9" Association="DishesModel.FK__Article__Author___5AEE82B9">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__Group_I__5BE2A6F2" Association="DishesModel.FK__Article__Group_I__5BE2A6F2">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="FullText_ID" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Article" ToRole="Author" />
+          <NavigationProperty Name="Group" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Article" ToRole="Group" />
+          <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Articles" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Author" ToRole="Article" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Articles" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Group" ToRole="Article" />
+        </EntityType>
+        <Association Name="FK__Article__Author___5AEE82B9">
+          <End Type="DishesModel.Author" Role="Author" Multiplicity="1" />
+          <End Type="DishesModel.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__Group_I__5BE2A6F2">
+          <End Type="DishesModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="DishesModel.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -180,6 +308,36 @@
                 <ScalarProperty Name="LogoLink" ColumnName="LogoLink" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="DishesModel.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="FullText_ID" ColumnName="FullText_ID" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="DishesModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="DishesModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

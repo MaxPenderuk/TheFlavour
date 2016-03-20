@@ -10,6 +10,11 @@
         <EntityTypeShape EntityType="DishesModel.Menu" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="DishesModel.FK__Category__Menu_I__22AA2996" ManuallyRouted="false" />
         <AssociationConnector Association="DishesModel.FK__Food__Category_I__36B12243" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DishesModel.Article" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="DishesModel.Author" Width="1.5" PointX="0.875" PointY="3.625" />
+        <EntityTypeShape EntityType="DishesModel.Group" Width="1.5" PointX="5.25" PointY="3.625" />
+        <AssociationConnector Association="DishesModel.FK__Article__Author___5AEE82B9" />
+        <AssociationConnector Association="DishesModel.FK__Article__Group_I__5BE2A6F2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

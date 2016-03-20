@@ -10,6 +10,7 @@ using TheFlavour.Models;
 using TheFlavour.ViewModels;
 using RestSharp;
 using RestSharp.Authenticators;
+using PagedList;
 
 namespace TheFlavour.Controllers
 {
@@ -138,6 +139,56 @@ namespace TheFlavour.Controllers
         public ActionResult Events()
         {
             return View();
+        }
+
+        public ActionResult Blog(int Id, int? auth, int? page)
+        {
+            var allGroups = (from x in db.Groups select x).ToList();
+            var group = db.Groups.Where(x => x.ID == Id).FirstOrDefault(); 
+            ViewBag.Group = allGroups;
+
+            // Amount of articles on page.
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
+            List<Article> article = new List<Article>();
+
+            // If `All Categories` tab is active.
+            if (Id == 6)
+            {
+                article = (from x in db.Articles select x).ToList();
+            }
+            else
+            {
+                article = group.Articles.ToList(); ;
+            }
+
+            var pagedlist = article.ToPagedList(pageNumber, pageSize);
+
+
+            // To set the next & previous pages of paginator.
+            if (pageNumber == 1)
+            {
+                ViewBag.Previous = "javascript:void(0);";
+            }
+            else
+            {
+                ViewBag.Previous = string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
+            }
+
+            if (pageNumber == pagedlist.PageCount)
+            {
+                ViewBag.Next = "javascript:void(0);";
+            }
+            else
+            {
+                ViewBag.Next = string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
+            }
+
+            // To keep track of selected group.
+            ViewBag.GroupID = Id;
+
+            return View(pagedlist);
         }
         
     }
