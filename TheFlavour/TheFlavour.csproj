@@ -432,6 +432,7 @@
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Menu\Deserts\Cakes\" />

@@ -141,27 +141,44 @@ namespace TheFlavour.Controllers
             return View();
         }
 
-        public ActionResult Blog(int Id, int? auth, int? page)
+        public ActionResult Blog(int Id, int? auth, string currentFilter, string searchString, int? page)
         {
             var allGroups = (from x in db.Groups select x).ToList();
             var group = db.Groups.Where(x => x.ID == Id).FirstOrDefault(); 
             ViewBag.Group = allGroups;
+            
+            List<Article> article = new List<Article>();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                page = 1;
+                article = db.Articles.Where(x => x.Title.Contains(searchString)).ToList();
+            }
+
+            ViewBag.SearchString = searchString;
+
+            // If `All Categories` tab is active
+            // and we didn't select author.
+            if (auth == null && searchString == null)
+            {
+                if (Id == 6)
+                {
+                    article = (from x in db.Articles select x).ToList();
+                }
+                else
+                {
+                    article = group.Articles.ToList(); ;
+                }
+            }
+            else if (String.IsNullOrEmpty(searchString))
+            {
+                article = db.Articles.Where(x => x.Author_ID == auth).ToList();
+                ViewBag.Author = db.Authors.Find(auth).Name;
+            }
 
             // Amount of articles on page.
             int pageSize = 6;
             int pageNumber = (page ?? 1);
-
-            List<Article> article = new List<Article>();
-
-            // If `All Categories` tab is active.
-            if (Id == 6)
-            {
-                article = (from x in db.Articles select x).ToList();
-            }
-            else
-            {
-                article = group.Articles.ToList(); ;
-            }
 
             var pagedlist = article.ToPagedList(pageNumber, pageSize);
 
@@ -174,6 +191,7 @@ namespace TheFlavour.Controllers
             else
             {
                 ViewBag.Previous = string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
+                if (auth != null) ViewBag.Previous = string.Format("/Blog/{0}?auth={1}&page={2}", Id, auth, pageNumber - 1);
             }
 
             if (pageNumber == pagedlist.PageCount)
@@ -183,11 +201,13 @@ namespace TheFlavour.Controllers
             else
             {
                 ViewBag.Next = string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
+                if (auth != null) ViewBag.Next = string.Format("/Blog/{0}?auth={1}&page={2}", Id, auth, pageNumber + 1);
             }
 
-            // To keep track of selected group.
+            // To keep track of the selected group.
             ViewBag.GroupID = Id;
 
+            if (auth != null) return View("Article", pagedlist);
             return View(pagedlist);
         }
         

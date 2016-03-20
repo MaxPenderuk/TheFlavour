@@ -5,62 +5,69 @@
 
 <div id="page" class="hfeed site">
     @Html.Partial("_CommonNav")
-    <section class="main-top">
-        <div class="image-section" style="background:url(../../images/Blog/logo.jpg);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <h3 class="title-before">Welcome to</h3>
-                        <h1 class="title">The Kitchen Chatter</h1>
-                        <div class="text"></div>
+    @if (ViewBag.SearchString == null)
+    {
+        <section class="main-top">
+            <div class="image-section" style="background:url(../../images/Blog/logo.jpg);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <h3 class="title-before">Welcome to</h3>
+                            <h1 class="title">The Kitchen Chatter</h1>
+                            <div class="text"></div>
+                        </div>
                     </div>
-                </div>
-                </p>
-            </div>
-        </div>
-    </section>
-    <div id="main" class="site-main blog" role="main">
-        <section class="sec-blog-categories">
-            <div class="wrapp-categories">
-                <div class="categories-slider blog">
-                    <div class="caroufredsel_wrapper">
-                        <ul id="categories-slider" class="blog-categories">
-                            @for (int i = ViewBag.Group.Count; i --> 0;)
-                            {
-                                if (ViewBag.Group[i].ID == ViewBag.GroupID)
-                                {
-                                    <li class="categories-item active">
-                                        <a href="/Blog/@ViewBag.Group[i].ID">
-                                            <div class="check-category">
-                                                <span></span>
-                                            </div>
-                                            @ViewBag.Group[i].Name
-                                        </a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="categories-item">
-                                        <a href="/Blog/@ViewBag.Group[i].ID">
-                                            <div class="check-category">
-                                                <span></span>
-                                            </div>
-                                            @ViewBag.Group[i].Name
-                                        </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-                    <a class="prev" id="categories-prev" href="#"><i class="tficon-shevron-left"></i></a>
-                    <a class="next" id="categories-next" href="#"><i class="tficon-shevron-right"></i></a>
                 </div>
             </div>
         </section>
+    }
+    <div id="main" class="site-main blog" role="main">
+        @if (ViewBag.SearchString == null)
+        {
+            <section class="sec-blog-categories">
+                <div class="wrapp-categories">
+                    <div class="categories-slider blog">
+                        <div class="caroufredsel_wrapper">
+                            <ul id="categories-slider" class="blog-categories">
+                                @for (int i = ViewBag.Group.Count; i-- > 0;)
+                                {
+                                    if (ViewBag.Group[i].ID == ViewBag.GroupID)
+                                    {
+                                        <li class="categories-item active">
+                                            <a href="/Blog/@ViewBag.Group[i].ID">
+                                                <div class="check-category">
+                                                    <span></span>
+                                                </div>
+                                                @ViewBag.Group[i].Name
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="categories-item">
+                                            <a href="/Blog/@ViewBag.Group[i].ID">
+                                                <div class="check-category">
+                                                    <span></span>
+                                                </div>
+                                                @ViewBag.Group[i].Name
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <a class="prev" id="categories-prev" href="#"><i class="tficon-shevron-left"></i></a>
+                        <a class="next" id="categories-next" href="#"><i class="tficon-shevron-right"></i></a>
+                    </div>
+                </div>
+            </section>
+        }
         <div class="container sidebar-right">
             <div class="row">
                 <div class="col-xs-12 content-area col-sm-8" id="primary">
-                    @foreach (var item in Model)
+                @if (Model.PageCount != 0)
+                {
+                    foreach (var item in Model)
                     {
                         <article class="post post-style-@item.ID">
                             <div class="inner">
@@ -74,11 +81,11 @@
                                     <header class="entry-header">
                                         <div class="entry-meta">
                                             <time class="entry-date">@item.EntryDate.ToString("MMMM dd, yyyy")</time>
-                                            <span class="author"> 
-                                                by @Html.ActionLink(item.Author.Name, "Blog", "Home", new { auth = item.Author_ID })
+                                            <span class="author">
+                                                by @Html.ActionLink(item.Author.Name, "Blog", "Home", new { auth = item.Author_ID }, null)
                                             </span>
-                                            <span class="cat-links"> 
-                                                in @Html.ActionLink(item.Group.Name, "Blog", "Home", new { Id = item.Group.ID, @title = "View all posts in Our Recipes", @rel = "category tag" })
+                                            <span class="cat-links">
+                                                in @Html.ActionLink(item.Group.Name, "Blog", "Home", new { id = item.Group.ID }, new { @title = "View all posts in Our Recipes", @rel = "category tag" })
                                             </span>
                                             <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?p=96">@item.Title</a></h1>
                                         </div>
@@ -98,6 +105,7 @@
                             </div>
                         </article>
                     }
+
                     <!-- pagination -->
                     <nav class="navigation paging-navigation" role="navigation">
                         <div class="pagination loop-pagination">
@@ -109,17 +117,31 @@
                         </div>
                     </nav>
                     <!-- /pagination -->
+                }
+                else
+                {
+                    <article class="post post-style-8">
+                        <div class="inner" style="text-align: center">
+                             <a href="" class="post-thumbnail">
+                                    <img src="../../images/Blog/noResults.png" class="attachment-post-thumb1 wp-post-image" />
+                             </a>
+                        </div>
+                     </article>
+                }
+
                 </div><!-- /#primary-->
 
                 <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12 sidebar widget-area" id="secondary">
                     <div class="inner">
                         <div class="widget widget-search">
                             <h3 class="widget-title">SEARCH BLOG</h3>
-                            <form method="get" id="searchform" action="http://demo.themefuse.com/theflavour/">
-                                <input name="s" id="s" type="text" class="inputtext" placeholder="ENTER KEYWORD" name="search" value="">
+                            
+                            @using (Html.BeginForm("Blog", "Home", FormMethod.Get, new { @id = "searchform" }))
+                            {
+                                @Html.TextBox("SearchString", ViewBag.SearchString as string, new { @class = "inputtext", @placeholder = "ENTER KEYWORD" })
                                 <button type="submit" class="btn btn-search"><span class="tficon-row"></span></button>
-                            </form>
-
+                            }
+                        
                         </div><div class="widget widget-freshpost">
                             <h3 class="widget-title">FRESH POSTS</h3>
 
