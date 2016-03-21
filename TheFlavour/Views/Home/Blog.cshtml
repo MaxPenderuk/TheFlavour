@@ -105,7 +105,20 @@
                             </div>
                         </article>
                     }
+                }
+                else
+                {
+                    <article class="post post-style-8">
+                        <div class="inner" style="text-align: center">
+                             <a href="" class="post-thumbnail">
+                                    <img src="../../images/Blog/noResults.png" class="attachment-post-thumb1 wp-post-image" />
+                             </a>
+                        </div>
+                     </article>
+                }
 
+                @if (!ViewBag.HidePagination)
+                {
                     <!-- pagination -->
                     <nav class="navigation paging-navigation" role="navigation">
                         <div class="pagination loop-pagination">
@@ -117,16 +130,6 @@
                         </div>
                     </nav>
                     <!-- /pagination -->
-                }
-                else
-                {
-                    <article class="post post-style-8">
-                        <div class="inner" style="text-align: center">
-                             <a href="" class="post-thumbnail">
-                                    <img src="../../images/Blog/noResults.png" class="attachment-post-thumb1 wp-post-image" />
-                             </a>
-                        </div>
-                     </article>
                 }
 
                 </div><!-- /#primary-->

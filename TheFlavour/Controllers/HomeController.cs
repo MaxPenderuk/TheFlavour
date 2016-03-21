@@ -170,7 +170,7 @@ namespace TheFlavour.Controllers
                     article = group.Articles.ToList(); ;
                 }
             }
-            else if (String.IsNullOrEmpty(searchString))
+            else if (String.IsNullOrEmpty(searchString) && auth != null)
             {
                 article = db.Articles.Where(x => x.Author_ID == auth).ToList();
                 ViewBag.Author = db.Authors.Find(auth).Name;
@@ -206,6 +206,9 @@ namespace TheFlavour.Controllers
 
             // To keep track of the selected group.
             ViewBag.GroupID = Id;
+
+            ViewBag.HidePagination = false;
+            if (article.Count <= pageSize) ViewBag.HidePagination = true;
 
             if (auth != null) return View("Article", pagedlist);
             return View(pagedlist);
