@@ -1,70 +1,415 @@
-﻿@model PagedList.IPagedList<TheFlavour.Models.Article>
+﻿@model TheFlavour.Models.Article
+
 @{
-    ViewBag.Title = ViewBag.Author + " | Author Archive";
+    ViewBag.Title = Model.Title;
 }
 
 <div id="page" class="hfeed site">
     @Html.Partial("_CommonNav")
     <div id="main" class="site-main blog" role="main">
-        <div class="container full-width">
+        <div class="container sidebar-right">
             <div class="row">
                 <div class="col-xs-12 content-area col-sm-8" id="primary">
-                    @foreach (var item in Model)
-                    {
-                        <article class="post post-style-@item.ID">
-                            <div class="inner">
-                                @if (item.ImageLink != null)
-                                {
-                                    <a href="http://demo.themefuse.com/theflavour/?p=96" class="post-thumbnail">
-                                        <img src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                    <div class="inner">
+                        <article class="post post-details post-style-1">
+                            <header class="entry-header">
+                                <div class="entry-meta">
+                                    <time class="entry-date">@Model.EntryDate.ToString("MMMM dd, yyyy")</time>
+                                    <span class="author"> by <a href="/Blog?auth=@Model.Author.ID" title="Posts by ThemeFuse" rel="author">ThemeFuse</a></span>
+                                    <span class="cat-links"> in <a href="/Blog/@Model.Group.ID" title="View all posts in Our Recipes" rel="category tag">@Model.Group.Name</a></span>
+                                    <h1 class="entry-title">@Model.Title</h1>
+                                    <a href="#comments" class="link-comment">
+                                        <span>7</span>
                                     </a>
+                                    <h4 class="min-descriptions">
+                                        @Model.Description
+                                    </h4>
+                                </div>
+                            </header>
+
+                            <div class="post-thumbnail">
+                                <a title="@Model.Title" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + Model.ImageLink)"><img width="260" height="260" src="http://@(Request.Url.Authority + Model.ImageLink)" class="attachment- wp-post-image" alt="@Model.ID" /></a>
+                            </div>
+
+                            <div class="entry-content">
+                                @Html.Raw(Model.Text1)
+
+                                @foreach (var item in ViewBag.PicLinks)
+                                {
+                                    <a href="@item.ImageLink" target="_self" data-rel="prettyPhoto" rel="prettyPhoto" title="" class="image-frame image-frame-caption"><img class="frame_left " src="@item.ImageLink" width="367" height="551" alt="" /></a>
                                 }
-                                <div class="entry-aside">
-                                    <header class="entry-header">
-                                        <div class="entry-meta">
-                                            <time class="entry-date">@item.EntryDate.ToString("MMMM dd, yyyy")</time>
-                                            <span class="author">
-                                                by @Html.ActionLink(item.Author.Name, "Blog", "Home", new { auth = item.Author_ID }, null)
-                                            </span>
-                                            <span class="cat-links">
-                                                in @Html.ActionLink(item.Group.Name, "Blog", "Home", new { id = item.Group.ID }, new { @title = "View all posts in Our Recipes", @rel = "category tag" })
-                                            </span>
-                                            <h1 class="entry-title"><a href="http://demo.themefuse.com/theflavour/?p=96">@item.Title</a></h1>
-                                        </div>
-                                    </header>
-                                    <div class="entry-content">
-                                        <p>
-                                            @item.Content
-                                        </p>
-                                    </div>
-                                    <footer class="entry-meta">
-                                        <a href="http://demo.themefuse.com/theflavour/?p=96" class="btn btn-black-transparent btn-xs"><span>find out more</span></a>
-                                        <a href="http://demo.themefuse.com/theflavour/?p=96#comments" class="link-comment">
-                                            <span>7</span>
-                                        </a>
-                                    </footer>
+                                
+                                @Html.Raw(Model.Text2)
+                                
+                                <div class="recipe">
+                                    @Html.Raw(Model.Recipe)
                                 </div>
                             </div>
                         </article>
-                    }
-                    <!-- pagination -->
-                    <nav class="navigation paging-navigation" role="navigation">
-                        <div class="pagination loop-pagination">
-                            <a class="page_prev" href="@ViewBag.Previous"><i class="tficon-shevron-left"></i></a>
-                            <div class="page-number">
-                                <span>@Model.PageNumber</span> of <span>@Model.PageCount</span>
+                        <section class="tagcloud">
+                            <a href="/Menu/2">desert</a>
+                        </section>
+                        <!--Share Links-->
+                        <section class="social-share-blog">
+                            <div class="twitter">
+                                <a href="https://twitter.com/share?url = @(Request.Url.Authority + "/Article/" + Model.ID)" target="_blank">
+                                    <i class="tficon-twitter-postshare"></i>Tweet
+                                </a>
                             </div>
-                            <a href="@ViewBag.Next" class="page_next"><i class="tficon-shevron-right"></i></a>
-                        </div>
-                    </nav>
-                    <!-- /pagination -->
-                </div><!-- /#primary-->
+                            <div class="facebook-share">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u= @(Request.Url.Authority + "/Article/" + Model.ID)" target="_blank">
+                                    <i class="tficon-facebook-postshare"></i>Share
+                                </a>
+                            </div>
+                            <div class="pinterest">
+                                <a href="http://www.pinterest.com/pin/create/button/?url= @(Request.Url.Authority + "/Article/" + Model.ID)" target="_blank">
+                                    <i class="tficon-pinterest-postshare"></i>Pin it
+                                </a>
+                            </div>
+                        </section>
+
+                        <section class="post-similar">
+                            <h1 class="title">You may also <span>like these posts:</span></h1>
+                            @foreach (var item in ViewBag.SimilarPosts)
+                            {
+                                <a href="/Article/@item.ID">
+                                    <img width="260" height="260" src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                    <span>@item.Title</span>
+                                </a>
+                            }
+                        </section>
+                        <div class="clear"></div>
+                        <div id="comments" class="comment-list for_comment_form">
 
 
-            </div><!-- /.row-->
-        </div><!-- /.container-->
-    </div><!-- /#main-->
 
+                            <div id="respond" class="comment-respond">
+                                <h3 id="reply-title" class="comment-reply-title">LEAVE A REPLY: <small><a rel="nofollow" id="cancel-comment-reply-link" href="/theflavour/?p=96#respond" style="display:none;">Cancel Reply</a></small></h3>
+                                <form action="http://demo.themefuse.com/theflavour/wp-comments-post.php" method="post" id="addcomments" class="comment-form">
+                                    <div class="left-colum">
+                                        <div class="form-field_text">
+                                            <label class="label_title" for="name">YOUR DISPLAY NAME *</label>
+                                            <input type="text" name="author" class="inputtext required" id="author" value="Jon" tabindex="1" aria-required='true' />
+                                        </div>
+                                        <div class="form-field_text">
+                                            <label class="label_title" for="email">YOUR EMAIL ADDRESS *</label>
+                                            <input type="text" name="email" class="inputtext required" id="email" value="ssdc@scdsc.com" tabindex="2" aria-required='true' />
+                                            <span class="optional">(this will not be shared)</span>
+                                        </div>
+                                        <div class="form-field_text">
+                                            <label class="label_title" for="website">YOUR WEBSITE</label>
+                                            <input type="text" class="inputtext" id="url" name="url" value="http://www.sdcsdc.com">
+                                            <span class="optional">(optional field)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="right-colum ">
+                                        <div class="form-field_textarea">
+                                            <label class="label_title" for="cooment">MESSAGE *</label>
+                                            <textarea name="comment" class="textarea required" id="comment" aria-required='true'></textarea>
+                                        </div>
+                                    </div>												<p class="form-submit">
+                                        <input name="submit" type="submit" id="submit" value="SUBMIT COMMENT" />
+                                        <input type='hidden' name='comment_post_ID' value='96' id='comment_post_ID' />
+                                        <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                                        <div class="form-reset">
+                                            <a href="#" onclick="" class="btn btn-black-transparent btn-reset"><span>reset fields</span></a>
+                                        </div>
+                                    </p>
+                                </form>
+                            </div><!-- #respond -->
+                        </div><!-- /for commnets-template -->
+                        <div class="divider-commentform"></div>
+
+                        <section id="comments" class="comments-area">
+                            <ol class="commentlist">
+                                <li class="comment even thread-even depth-1" id="li-comment-2">
+                                    <a name="comment-2"></a>
+
+                                    <article id="li-comment-2" class="comment-body">
+                                        <div class="comment-avatar">
+                                            <img alt='' src='http://0.gravatar.com/avatar/2f228cfd8f0ecb4de350d63ecbf86de8?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                        </div>
+
+                                        <div class="comment-aside">
+                                            <div class="comment-meta">
+                                                <span class="comment-author"><a href="#">BRIAN GEOFFREY</a></span>
+                                                <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=2#respond' onclick='return addComment.moveForm("comment-2", "2", "respond", "96")'>Reply</a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>I personally cringe every time I see a shop trying to recruit people with Check out our ping-pong table, pool table, awesome view, free drinks, and beer on tap... When I'm at work I want to work. When I'm done with work I have a family to go to. Ping-pong and beer couldn't possibly steal me away from my family.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <div id="comment-2"></div>
+                                        <div class="clear"></div>
+
+                                    </article><!-- /.comment-body-->
+                                    <ul class="children">
+                                        <li class="comment odd alt depth-2" id="li-comment-3">
+                                            <a name="comment-3"></a>
+
+                                            <article id="li-comment-3" class="comment-body">
+                                                <div class="comment-avatar">
+                                                    <img alt='' src='http://0.gravatar.com/avatar/c88801e75741bd48e4dcb89a689036bc?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                                </div>
+
+                                                <div class="comment-aside">
+                                                    <div class="comment-meta">
+                                                        <span class="comment-author"><a href="#">MATTHEW FERRIDON</a></span>
+                                                        <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=3#respond' onclick='return addComment.moveForm("comment-3", "3", "respond", "96")'>Reply</a>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullarper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+                                                <div id="comment-3"></div>
+                                                <div class="clear"></div>
+
+                                            </article><!-- /.comment-body-->
+                                            <ul class="children">
+                                                <li class="comment even depth-3" id="li-comment-4">
+                                                    <a name="comment-4"></a>
+
+                                                    <article id="li-comment-4" class="comment-body">
+                                                        <div class="comment-avatar">
+                                                            <img alt='' src='http://1.gravatar.com/avatar/fe54e73e29cac33917ee48ab110b9bef?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                                        </div>
+
+                                                        <div class="comment-aside">
+                                                            <div class="comment-meta">
+                                                                <span class="comment-author"><a href="#">ThemeFuse</a></span>
+                                                                <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=4#respond' onclick='return addComment.moveForm("comment-4", "4", "respond", "96")'>Reply</a>
+                                                            </div>
+                                                            <div class="comment-content">
+                                                                <p>All in all very well thought out benefits, sounds like a great working environment! Just wondering, is there a particular reason you do the 4-days week only during summer? Have you considered doing that all year?</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="clear"></div>
+                                                        <div id="comment-4"></div>
+                                                        <div class="clear"></div>
+
+                                                    </article><!-- /.comment-body-->
+                                                    <ul class="children">
+                                                        <li class="comment odd alt depth-4" id="li-comment-5">
+                                                            <a name="comment-5"></a>
+
+                                                            <article id="li-comment-5" class="comment-body">
+                                                                <div class="comment-avatar">
+                                                                    <img alt='' src='http://0.gravatar.com/avatar/ebac6b09595a5315c599ea140e3100e0?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                                                </div>
+
+                                                                <div class="comment-aside">
+                                                                    <div class="comment-meta">
+                                                                        <span class="comment-author"><a href="#">PAUL REDMOND</a></span>
+                                                                        <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=5#respond' onclick='return addComment.moveForm("comment-5", "5", "respond", "96")'>Reply</a>
+                                                                    </div>
+                                                                    <div class="comment-content">
+                                                                        <p>Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna sit amet arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos lorem ipsum dolor sit amet.</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="clear"></div>
+                                                                <div id="comment-5"></div>
+                                                                <div class="clear"></div>
+
+                                                            </article><!-- /.comment-body-->
+                                                            <ul class="children">
+                                                                <li class="comment even depth-5" id="li-comment-6">
+                                                                    <a name="comment-6"></a>
+
+                                                                    <article id="li-comment-6" class="comment-body">
+                                                                        <div class="comment-avatar">
+                                                                            <img alt='' src='http://0.gravatar.com/avatar/c88801e75741bd48e4dcb89a689036bc?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                                                        </div>
+
+                                                                        <div class="comment-aside">
+                                                                            <div class="comment-meta">
+                                                                                <span class="comment-author"><a href="#">MATTHEW FERRIDON</a></span>
+                                                                                <br>
+                                                                            </div>
+                                                                            <div class="comment-content">
+                                                                                <p>In Sweden we have on average 33 vacationdays (includes national holidays). 5 vacations weeks in mandatory by law. Lots of people have 6 weeks.</p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="clear"></div>
+                                                                        <div id="comment-6"></div>
+                                                                        <div class="clear"></div>
+
+                                                                    </article><!-- /.comment-body-->
+                                                                </li><!-- #comment-## -->
+                                                            </ul><!-- .children -->
+                                                        </li><!-- #comment-## -->
+                                                    </ul><!-- .children -->
+                                                </li><!-- #comment-## -->
+                                            </ul><!-- .children -->
+                                        </li><!-- #comment-## -->
+                                    </ul><!-- .children -->
+                                </li><!-- #comment-## -->
+                                <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-7">
+                                    <a name="comment-7"></a>
+
+                                    <article id="li-comment-7" class="comment-body">
+                                        <div class="comment-avatar">
+                                            <img alt='' src='http://1.gravatar.com/avatar/fe54e73e29cac33917ee48ab110b9bef?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                        </div>
+
+                                        <div class="comment-aside">
+                                            <div class="comment-meta">
+                                                <span class="comment-author"><a href="#">ThemeFuse</a></span>
+                                                <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=7#respond' onclick='return addComment.moveForm("comment-7", "7", "respond", "96")'>Reply</a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>I personally cringe every time I see a shop trying to recruit people with Check out our ping-pong table, pool table, awesome view, free drinks, and beer on tap... When I'm at work I want to work. When I'm done with work I have a family to go to. Ping-pong and beer couldn't possibly steal me away from my family.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <div id="comment-7"></div>
+                                        <div class="clear"></div>
+
+                                    </article><!-- /.comment-body-->
+                                </li><!-- #comment-## -->
+                                <li class="comment even thread-even depth-1" id="li-comment-8">
+                                    <a name="comment-8"></a>
+
+                                    <article id="li-comment-8" class="comment-body">
+                                        <div class="comment-avatar">
+                                            <img alt='' src='http://0.gravatar.com/avatar/c88801e75741bd48e4dcb89a689036bc?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                        </div>
+
+                                        <div class="comment-aside">
+                                            <div class="comment-meta">
+                                                <span class="comment-author"><a href="#">MATTHEW FERRIDON</a></span>
+                                                <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=8#respond' onclick='return addComment.moveForm("comment-8", "8", "respond", "96")'>Reply</a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullarper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <div id="comment-8"></div>
+                                        <div class="clear"></div>
+
+                                    </article><!-- /.comment-body-->
+                                </li><!-- #comment-## -->
+                                <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-31">
+                                    <a name="comment-31"></a>
+
+                                    <article id="li-comment-31" class="comment-body">
+                                        <div class="comment-avatar">
+                                            <img alt='' src='http://1.gravatar.com/avatar/7edba33e0372dcb8f39afcc43e9b5775?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+                                        </div>
+
+                                        <div class="comment-aside">
+                                            <div class="comment-meta">
+                                                <span class="comment-author"><a href="#"><a href='http://www.sdcsdc.com' rel='external nofollow' class='url'>Jon</a></a></span>
+                                                <a class='comment-reply-link' href='/theflavour/?p=96&#038;replytocom=31#respond' onclick='return addComment.moveForm("comment-31", "31", "respond", "96")'>Reply</a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>sdcsdcsdcsd</p>
+                                            </div>
+                                            <em class="comment-awaiting-moderation">Your comment is awaiting moderation.</em>
+                                            <br />
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <div id="comment-31"></div>
+                                        <div class="clear"></div>
+
+                                    </article><!-- /.comment-body-->
+                                </li><!-- #comment-## -->
+                            </ol>
+                        </section>
+
+
+                    </div><!-- /.inner -->
+                </div><!-- /#primary -->
+
+                @Html.Partial("_BlogRightSide")
+
+            </div><!-- /.row -->
+        </div><!-- /.container  -->
+    </div><!-- /#main -->
+
+    <section class="testimonials testimonials874 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h3 class="testimonials-title-before">TESTIMONIALS FROM OUR</h3>
+                    <h1 class="testimonials-title">Customers &#038; Friends</h1>
+                    <div class="testimonials-slider">
+                        <span class="tficon-apostroufe"></span></p>
+                        <ul id="testimonials874">
+                            <li data-testimonial="1">
+                                <div class="testimonials-text">
+                                    <p>&#8220;It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.&#8221;</p>
+                                </div>
+                                <div class="testimonials-author"><span>Will Smith</span></div>
+                                <div class="testimonials-organization"><span>review from</span> <a href="http://themefuse.com/">Themefuse</a></div>
+                            </li>
+                            <li data-testimonial="1">
+                                <div class="testimonials-text">
+                                    <p>&#8220;Themefuse themes are like designer clothes for yor website. I&#8217;d get a whole closet full of lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullarem in dui mauris. Vivamus kissterio hendrerit arcusimos yupinos them.&#8221;</p>
+                                </div>
+                                <div class="testimonials-author"><span>Michael Freemon</span></div>
+                                <div class="testimonials-organization"><span>review from</span> <a href="#">Trip Advisor</a></div>
+                            </li>
+                        </ul>
+                        <div id="testimonials-controls874" class="testimonials-controls"></div>
+                        </p>
+                    </div>
+                    </p>
+                </div>
+                <p>
+                    <a id="testimonials-prev874" class="prev" href="#"><i class="tficon-shevron-left"></i></a><br />
+                    <a id="testimonials-next874" class="next" href="#"><i class="tficon-shevron-right"></i></a>
+            </div>
+            </p>
+        </div>
+    </section>
+    <p>
+        <script>
+            jQuery(document).ready(function() {
+                function testimonialsInit() {
+                    jQuery("#testimonials874").carouFredSel({
+                        swipe : {
+                            onTouch: true
+                        },
+                        next : "#testimonials-next874",
+                        prev : "#testimonials-prev874",
+                        pagination : "#testimonials-controls874",
+                        infinite: false,
+                        items: 1,
+                        auto: {
+                            play: true,
+                            timeoutDuration: 10000
+                        },
+                        scroll: {
+                            items : 1,
+                            fx: "crossfade",
+                            easing: "linear",
+                            pauseOnHover: true,
+                            duration: 300
+                        }
+                    });
+                }
+                testimonialsInit();
+                jQuery(window).resize(function() {
+                    testimonialsInit();
+                });
+                var tControlsHeight = jQuery(".testimonials-controls").innerHeight();
+                jQuery(".testimonials-controls").css("margin-top" , -tControlsHeight/2);
+            });
+        </script>
+    </p>
     @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = false })
     <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
 </div><!-- /#page-->
+@Html.Partial("_GoogleAnalytics")

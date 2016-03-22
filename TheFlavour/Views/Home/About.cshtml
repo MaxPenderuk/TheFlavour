@@ -1,7 +1,151 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div id="page" class="hfeed site">
+    @Html.Partial("_CommonNav")
+    <section class=" main-top">
+        <div class="image-section" style="background:url(@("http://" + Request.Url.Authority + "/images/about-head.jpg"));">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h3 class="title-before">About us</h3>
+                        <h1 class="title">Tradition &#038; Passion</h1>
+                        <div class="text">
+                            <div class="about-year">flavoured taste since 2005</div>
+                        </div>
+                    </div>
+                </div>
+                </p>
+            </div>
+        </div>
+    </section>
+    <div id="main" class="site-main blog-details" role="main">
+        <div class="container full-width">
+            <div class="row">
+                <div class="col-xs-12 content-area col-sm-8" id="primary">
+                    <div class="post-descr entry">
+                        <section class="about-us clearfix">
+                            <div class="entry-header pull-left">
+                                <div class="about-meta">
+                                    <h3>Our Short History</h3>
+                                </div>
+                                <div class="about-title">How we&#8217;ve started our small firm.</div>
+                            </div>
+                            <div class="entry-content pull-right">
+                                <p>Who&#8217;s the ideal person to show you round a new city? Someone local who shares your interests, right? Right. That&#8217;s TriplAgent: the insider&#8217;s view of a city, from people like you. </p>
+                                <p>When you&#8217;re travelling, time is precious. You want to get the most out of it. Instead of some trendy, overpriced diner on a crowded tourist street, you want to find that hidden gem of a neighbourhood restaurant. You want to explore; you want the adventure. And now, you have a guide. </p>
+                                <p>If you&#8217;d like to help us build the best ever guide to the ertvod world&#8217;s greattourist street, you want to find that hidden gem of a neighbour!</p>
+                            </div>
+                        </section>
+                        <section class="about-us clearfix">
+                            <div style="width: 53.7%;" class="entry-header pull-right">
+                                <div class="about-thumbnail"><img src="@("http://" + Request.Url.Authority + "/images/about-thumbnail.jpg")"></div>
+                            </div>
+                            <div style="width: 39%;" class="entry-content pull-left">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. </p>
+                                <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia. </p>
+                            </div>
+                        </section>
+                        <section class="about-us clearfix">
+                            <div class="entry-header pull-left">
+                                <div class="about-meta">
+                                    <h3>Job Openings</h3>
+                                </div>
+                                <div class="about-title">would you like to join our team?</div>
+                            </div>
+                            <div class="entry-content pull-right">
+                                <p>Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio.  </p>
+                                <p>Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor.  </p>
+                                <p>Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna sit amet arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie augue sit amet leo consequat posuere. </p>
+                            </div>
+                        </section>
+                    </div><!-- /.entry -->
+                </div><!-- /#primary -->
+
+
+            </div><!-- /.row -->
+        </div><!--/ .container -->
+    </div><!--/ #middle -->
+
+
+    <section class="about-us-slider">
+        <div class="divider"></div>
+        <h2 class="before-title">shortcode banners</h2>
+        <h1 class="title">Special Offers</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 banner_container">
+                    <div class="main-carousel">
+                        <div id="myCarousel" class="carousel slide">
+                            <div class="carousel-inner"><div class="item active"><a target="_self" href="#1"><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer-750x489.jpg" width="750" height="489" /></a></div><div class="item"><a target="_self" href="#2"><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer2-750x489.jpg" width="750" height="489" /></a></div></div><div class="post-navigation"><ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="0" class="active"></li><li data-target="#myCarousel" data-slide-to="1"></li></ol></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var slider = $('#myCarousel'), animateClass;
+                slider.carousel({
+                    interval: 7500,
+                    pause: 'none'
+                });
+                slider.find('[data-animate-in]').addClass('animated');
+                function animateSlide() {
+                    slider.find('.item').removeClass('current');
+                    slider.find('.active').addClass('current').find('[data-animate-in]').each(function () {
+                        var __this = $(this);
+                        animateClass = __this.data('animate-in');
+                        __this.addClass(animateClass)
+                    });
+                    slider.find('.active').find('[data-animate-out]').each(function () {
+                        var __this = $(this);
+                        animateClass = __this.data('animate-out');
+                        __this.removeClass(animateClass)
+                    });
+                }
+                function animateSlideEnd() {
+                    slider.find('.active').find('[data-animate-in]').each(function () {
+                        var __this = $(this);
+                        animateClass = __this.data('animate-in');
+                        __this.removeClass(animateClass)
+                    });
+                    slider.find('.active').find('[data-animate-out]').each(function () {
+                        var __this = $(this);
+                        animateClass = __this.data('animate-out');
+                        __this.addClass(animateClass)
+                    });
+                }
+                slider.find('.invisible').removeClass('invisible');
+                animateSlide();
+                slider.on('slid.bs.carousel', function () {
+                    animateSlide();
+                });
+                slider.on('slide.bs.carousel', function () {
+                    animateSlideEnd();
+                });
+                if (Modernizr.touch) {
+                    slider.find('.carousel-inner').swipe({
+                        swipeUp: function () {
+                            $(this).parent().carousel('prev');
+                        },
+                        swipeDown: function () {
+                            $(this).parent().carousel('next');
+                        },
+                        swipeLeft: function () {
+                            $(this).parent().carousel('prev');
+                        },
+                        swipeRight: function () {
+                            $(this).parent().carousel('next');
+                        },
+                        threshold: 30
+                    })
+                }
+            });
+        </script>
+    </section>
+    @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = true })
+    <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+</div><!-- /#page-->
+@Html.Partial("_GoogleAnalytics")

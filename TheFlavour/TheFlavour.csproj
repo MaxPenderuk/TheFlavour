@@ -207,6 +207,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Mail.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -233,6 +234,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Menu.cs">
+      <DependentUpon>TFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Picture.cs">
       <DependentUpon>TFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TFModel.Context.cs">
@@ -427,12 +431,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_CommonNav.cshtml" />
     <Content Include="Views\Home\Menu.cshtml" />
-    <Content Include="Views\Shared\_GoogleMapPart.cshtml" />
+    <Content Include="Views\Shared\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Shared\_BottomPart.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\Articles.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
+    <Content Include="Views\Shared\_BlogRightSide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Menu\Deserts\Cakes\" />

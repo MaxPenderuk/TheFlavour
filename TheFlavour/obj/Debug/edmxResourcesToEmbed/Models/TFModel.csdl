@@ -80,6 +80,11 @@
       <End Role="Group" EntitySet="Groups" />
       <End Role="Article" EntitySet="Articles" />
     </AssociationSet>
+    <EntitySet Name="Pictures" EntityType="DishesModel.Picture" />
+    <AssociationSet Name="FK__Pictures__Articl__6FE99F9F" Association="DishesModel.FK__Pictures__Articl__6FE99F9F">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="Picture" EntitySet="Pictures" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Article">
     <Key>
@@ -91,10 +96,14 @@
     <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Author_ID" Type="Int32" Nullable="false" />
     <Property Name="Group_ID" Type="Int32" Nullable="false" />
-    <Property Name="FullText_ID" Type="Int32" />
     <NavigationProperty Name="Author" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Article" ToRole="Author" />
     <NavigationProperty Name="Group" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Article" ToRole="Group" />
     <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Text1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Text2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Recipe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Pictures" Relationship="DishesModel.FK__Pictures__Articl__6FE99F9F" FromRole="Article" ToRole="Picture" />
   </EntityType>
   <EntityType Name="Author">
     <Key>
@@ -133,6 +142,27 @@
       </Principal>
       <Dependent Role="Article">
         <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Picture">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Article" Relationship="DishesModel.FK__Pictures__Articl__6FE99F9F" FromRole="Picture" ToRole="Article" />
+  </EntityType>
+  <Association Name="FK__Pictures__Articl__6FE99F9F">
+    <End Type="DishesModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="DishesModel.Picture" Role="Picture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Picture">
+        <PropertyRef Name="ArticleID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -14,16 +14,27 @@ namespace TheFlavour.Models
     
     public partial class Article
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Article()
+        {
+            this.Pictures = new HashSet<Picture>();
+        }
+    
         public int ID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public System.DateTime EntryDate { get; set; }
         public int Author_ID { get; set; }
         public int Group_ID { get; set; }
-        public Nullable<int> FullText_ID { get; set; }
         public string ImageLink { get; set; }
+        public string Text1 { get; set; }
+        public string Text2 { get; set; }
+        public string Recipe { get; set; }
+        public string Description { get; set; }
     
         public virtual Author Author { get; set; }
         public virtual Group Group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Picture> Pictures { get; set; }
     }
 }

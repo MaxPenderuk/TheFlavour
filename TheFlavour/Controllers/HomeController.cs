@@ -9,8 +9,8 @@ using System.Web.Mvc;
 using TheFlavour.Models;
 using TheFlavour.ViewModels;
 using RestSharp;
-using RestSharp.Authenticators;
 using PagedList;
+using TheFlavour.App_Start;
 
 namespace TheFlavour.Controllers
 {
@@ -59,10 +59,9 @@ namespace TheFlavour.Controllers
             return View(homeModel);
         }
 
+        // GET: Home/About
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
@@ -88,14 +87,12 @@ namespace TheFlavour.Controllers
             // If form is valid -> send a message via MailGun.
             if (ModelState.IsValid)
             {
-                RestClient client = new RestClient();
-                client.BaseUrl = new Uri("https://api.mailgun.net/v3");
-                client.Authenticator = new HttpBasicAuthenticator("api",
-                    "key-df53234228b396feac9da6e2cc066c01");
-                RestRequest request = new RestRequest();
-                request.AddParameter("domain",
-                    "sandbox24405ccf53df416781e7bcf22d0261aa.mailgun.org", ParameterType.UrlSegment);
-                request.Resource = "{domain}/messages";
+                // Get MailGun setup from `App_Start/Mail.cs`.
+                Tuple<RestClient, RestRequest> clientRes = Mail.MailAuth();
+
+                RestClient client = clientRes.Item1;
+                RestRequest request = clientRes.Item2;
+
                 request.AddParameter("to", "jaspergrom@gmail.com");
                 request.AddParameter("from", contactForm.Email);
                 request.AddParameter("subject", "`Contact us` form");
@@ -108,6 +105,7 @@ namespace TheFlavour.Controllers
             return 0;
         }
 
+        // GET: Home/Menu
         public ActionResult Menu(int? Id)
         {
             List<Menu> curMenu = db.Menus.Where(x => x.ID == Id).ToList();
@@ -131,17 +129,20 @@ namespace TheFlavour.Controllers
             return View();
         }
 
+        // GET: Home/Gallery
         public ActionResult Gallery()
         {
             return View();
         }
 
+        // GET: Home/Events
         public ActionResult Events()
         {
             return View();
         }
 
-        public ActionResult Blog(int Id, int? auth, string currentFilter, string searchString, int? page)
+        // GET: Home/Blog
+        public ActionResult Blog(int? Id, int? auth, string currentFilter, string searchString, int? page)
         {
             var allGroups = (from x in db.Groups select x).ToList();
             var group = db.Groups.Where(x => x.ID == Id).FirstOrDefault(); 
@@ -159,7 +160,7 @@ namespace TheFlavour.Controllers
 
             // If `All Categories` tab is active
             // and we didn't select author.
-            if (auth == null && searchString == null)
+            if (auth == null && string.IsNullOrEmpty(searchString))
             {
                 if (Id == 6)
                 {
@@ -170,7 +171,7 @@ namespace TheFlavour.Controllers
                     article = group.Articles.ToList(); ;
                 }
             }
-            else if (String.IsNullOrEmpty(searchString) && auth != null)
+            else if (string.IsNullOrEmpty(searchString) && auth != null)
             {
                 article = db.Articles.Where(x => x.Author_ID == auth).ToList();
                 ViewBag.Author = db.Authors.Find(auth).Name;
@@ -190,8 +191,14 @@ namespace TheFlavour.Controllers
             }
             else
             {
-                ViewBag.Previous = string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
-                if (auth != null) ViewBag.Previous = string.Format("/Blog/{0}?auth={1}&page={2}", Id, auth, pageNumber - 1);
+                if (auth != null)
+                {
+                    ViewBag.Previous = string.Format("/Blog?auth={0}&page={1}", auth, pageNumber - 1);
+                }
+                else
+                {
+                    ViewBag.Previous = string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
+                }
             }
 
             if (pageNumber == pagedlist.PageCount)
@@ -200,8 +207,14 @@ namespace TheFlavour.Controllers
             }
             else
             {
-                ViewBag.Next = string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
-                if (auth != null) ViewBag.Next = string.Format("/Blog/{0}?auth={1}&page={2}", Id, auth, pageNumber + 1);
+                if (auth != null)
+                {
+                    ViewBag.Next = string.Format("/Blog?auth={0}&page={1}", auth, pageNumber + 1);
+                }
+                else
+                {
+                    ViewBag.Next = string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
+                }
             }
 
             // To keep track of the selected group.
@@ -210,8 +223,32 @@ namespace TheFlavour.Controllers
             ViewBag.HidePagination = false;
             if (article.Count <= pageSize) ViewBag.HidePagination = true;
 
-            if (auth != null) return View("Article", pagedlist);
+            if (auth != null) return View("Articles", pagedlist);
             return View(pagedlist);
+        }
+
+        // GET: Home/Article
+        public ActionResult Article(int id)
+        {
+            var article = db.Articles.Where(x => x.ID == id).ToList();
+
+            if (article.Count == 0) return HttpNotFound();
+
+            // To find all pictures related to the current article.
+            var pictures = db.Pictures.Where(x => x.ArticleID == id).ToList();
+            foreach (var item in pictures)
+            {
+                item.ImageLink = "http://" + Request.Url.Authority + item.ImageLink;
+            }
+
+            // To select similar posts.
+            Random rnd = new Random();
+            var artByGroup = db.Articles.Where(x => x.Group_ID == article.First().Group_ID).ToList();
+            var similarPost = artByGroup.OrderBy(ID => rnd.Next()).Take(3).ToList();
+
+            ViewBag.SimilarPosts = similarPost.Except(article);
+            ViewBag.PicLinks = pictures;
+            return View(article);
         }
         
     }

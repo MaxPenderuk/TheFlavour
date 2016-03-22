@@ -31,5 +31,6 @@ namespace TheFlavour.Models
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Picture> Pictures { get; set; }
     }
 }

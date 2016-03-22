@@ -15,8 +15,11 @@
           <Property Name="EntryDate" Type="date" Nullable="false" />
           <Property Name="Author_ID" Type="int" Nullable="false" />
           <Property Name="Group_ID" Type="int" Nullable="false" />
-          <Property Name="FullText_ID" Type="int" />
           <Property Name="ImageLink" Type="nvarchar(max)" />
+          <Property Name="Text1" Type="text" />
+          <Property Name="Text2" Type="text" />
+          <Property Name="Recipe" Type="text" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Author">
           <Key>
@@ -60,6 +63,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LogoLink" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pictures">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageLink" Type="nvarchar(max)" />
+          <Property Name="ArticleID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__Article__Author___5AEE82B9">
           <End Role="Author" Type="Self.Author" Multiplicity="1" />
@@ -109,6 +120,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Pictures__Articl__6FE99F9F">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Pictures" Type="Self.Pictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pictures">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DishesModelStoreContainer">
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
@@ -116,6 +139,7 @@
           <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pictures" EntityType="Self.Pictures" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Article__Author___5AEE82B9" Association="Self.FK__Article__Author___5AEE82B9">
             <End Role="Author" EntitySet="Author" />
             <End Role="Article" EntitySet="Article" />
@@ -131,6 +155,10 @@
           <AssociationSet Name="FK__Food__Category_I__36B12243" Association="Self.FK__Food__Category_I__36B12243">
             <End Role="Category" EntitySet="Category" />
             <End Role="Food" EntitySet="Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pictures__Articl__6FE99F9F" Association="Self.FK__Pictures__Articl__6FE99F9F">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Pictures" EntitySet="Pictures" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -217,6 +245,11 @@
             <End Role="Group" EntitySet="Groups" />
             <End Role="Article" EntitySet="Articles" />
           </AssociationSet>
+          <EntitySet Name="Pictures" EntityType="DishesModel.Picture" />
+          <AssociationSet Name="FK__Pictures__Articl__6FE99F9F" Association="DishesModel.FK__Pictures__Articl__6FE99F9F">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Picture" EntitySet="Pictures" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Article">
           <Key>
@@ -228,10 +261,14 @@
           <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Author_ID" Type="Int32" Nullable="false" />
           <Property Name="Group_ID" Type="Int32" Nullable="false" />
-          <Property Name="FullText_ID" Type="Int32" />
           <NavigationProperty Name="Author" Relationship="DishesModel.FK__Article__Author___5AEE82B9" FromRole="Article" ToRole="Author" />
           <NavigationProperty Name="Group" Relationship="DishesModel.FK__Article__Group_I__5BE2A6F2" FromRole="Article" ToRole="Group" />
           <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Text1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Text2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Recipe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pictures" Relationship="DishesModel.FK__Pictures__Articl__6FE99F9F" FromRole="Article" ToRole="Picture" />
         </EntityType>
         <EntityType Name="Author">
           <Key>
@@ -270,6 +307,27 @@
             </Principal>
             <Dependent Role="Article">
               <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="DishesModel.FK__Pictures__Articl__6FE99F9F" FromRole="Picture" ToRole="Article" />
+        </EntityType>
+        <Association Name="FK__Pictures__Articl__6FE99F9F">
+          <End Type="DishesModel.Article" Role="Article" Multiplicity="1" />
+          <End Type="DishesModel.Picture" Role="Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Picture">
+              <PropertyRef Name="ArticleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -314,8 +372,11 @@
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="DishesModel.Article">
               <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="Text2" ColumnName="Text2" />
+                <ScalarProperty Name="Text1" ColumnName="Text1" />
                 <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
-                <ScalarProperty Name="FullText_ID" ColumnName="FullText_ID" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
@@ -337,6 +398,15 @@
             <EntityTypeMapping TypeName="DishesModel.Group">
               <MappingFragment StoreEntitySet="Group">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="DishesModel.Picture">
+              <MappingFragment StoreEntitySet="Pictures">
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

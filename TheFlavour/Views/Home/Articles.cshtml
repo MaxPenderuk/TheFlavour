@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<TheFlavour.Models.Article>
+@{
+    ViewBag.Title = ViewBag.Author + " | Author Archive";
+}
+
+<div id="page" class="hfeed site">
+    @Html.Partial("_CommonNav")
+    <div id="main" class="site-main blog" role="main">
+        <div class="container full-width">
+            <div class="row">
+                <div class="col-xs-12 content-area col-sm-8" id="primary">
+                    @foreach (var item in Model)
+                    {
+                        <article class="post post-style-@item.ID">
+                            <div class="inner">
+                                @if (item.ImageLink != null)
+                                {
+                                    <a href="http://demo.themefuse.com/theflavour/?p=96" class="post-thumbnail">
+                                        <img src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                    </a>
+                                }
+                                <div class="entry-aside">
+                                    <header class="entry-header">
+                                        <div class="entry-meta">
+                                            <time class="entry-date">@item.EntryDate.ToString("MMMM dd, yyyy")</time>
+                                            <span class="author">
+                                                by @Html.ActionLink(item.Author.Name, "Blog", "Home", new { auth = item.Author_ID }, null)
+                                            </span>
+                                            <span class="cat-links">
+                                                in @Html.ActionLink(item.Group.Name, "Blog", "Home", new { id = item.Group.ID }, new { @title = "View all posts in Our Recipes", @rel = "category tag" })
+                                            </span>
+                                            <h1 class="entry-title">
+                                                @Html.ActionLink(item.Title, "Article", "Home", new { id = item.ID }, null)
+                                            </h1>
+                                        </div>
+                                    </header>
+                                    <div class="entry-content">
+                                        <p>
+                                            @item.Content
+                                        </p>
+                                    </div>
+                                    <footer class="entry-meta">
+                                        <a href="@Url.Action("Article", "Home", new { id = item.ID })" class="btn btn-black-transparent btn-xs"><span>find out more</span></a>
+                                        @*<a href="http://demo.themefuse.com/theflavour/?p=96#comments" class="link-comment">
+                                            <span>7</span>
+                                        </a>*@
+                                    </footer>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                    <!-- pagination -->
+                    <nav class="navigation paging-navigation" role="navigation">
+                        <div class="pagination loop-pagination">
+                            <a class="page_prev" href="@ViewBag.Previous"><i class="tficon-shevron-left"></i></a>
+                            <div class="page-number">
+                                <span>@Model.PageNumber</span> of <span>@Model.PageCount</span>
+                            </div>
+                            <a href="@ViewBag.Next" class="page_next"><i class="tficon-shevron-right"></i></a>
+                        </div>
+                    </nav>
+                    <!-- /pagination -->
+                </div><!-- /#primary-->
+
+
+            </div><!-- /.row-->
+        </div><!-- /.container-->
+    </div><!-- /#main-->
+
+    @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = false })
+    <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+</div><!-- /#page-->

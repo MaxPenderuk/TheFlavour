@@ -36,8 +36,11 @@
     <EntitySetMapping Name="Articles">
       <EntityTypeMapping TypeName="DishesModel.Article">
         <MappingFragment StoreEntitySet="Article">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+          <ScalarProperty Name="Text2" ColumnName="Text2" />
+          <ScalarProperty Name="Text1" ColumnName="Text1" />
           <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
-          <ScalarProperty Name="FullText_ID" ColumnName="FullText_ID" />
           <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
           <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
           <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
@@ -59,6 +62,15 @@
       <EntityTypeMapping TypeName="DishesModel.Group">
         <MappingFragment StoreEntitySet="Group">
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pictures">
+      <EntityTypeMapping TypeName="DishesModel.Picture">
+        <MappingFragment StoreEntitySet="Pictures">
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
