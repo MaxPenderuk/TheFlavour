@@ -33,6 +33,19 @@
     <Property Name="ImageLink" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Href" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Website" Type="nvarchar" MaxLength="100" />
+    <Property Name="Text" Type="text" Nullable="false" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="AuthorPic" Type="nvarchar" MaxLength="100" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Food">
     <Key>
       <PropertyRef Name="ID" />
@@ -103,6 +116,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Comment__Article__03F0984C">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__ParentI__02FC7413">
+    <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+    <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Food__Category_I__36B12243">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Food" Type="Self.Food" Multiplicity="*" />
@@ -131,6 +168,7 @@
     <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
@@ -146,6 +184,14 @@
     <AssociationSet Name="FK__Category__Menu_I__22AA2996" Association="Self.FK__Category__Menu_I__22AA2996">
       <End Role="Menu" EntitySet="Menu" />
       <End Role="Category" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__Article__03F0984C" Association="Self.FK__Comment__Article__03F0984C">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__ParentI__02FC7413" Association="Self.FK__Comment__ParentI__02FC7413">
+      <End Role="Comment" EntitySet="Comment" />
+      <End Role="Comment1" EntitySet="Comment" />
     </AssociationSet>
     <AssociationSet Name="FK__Food__Category_I__36B12243" Association="Self.FK__Food__Category_I__36B12243">
       <End Role="Category" EntitySet="Category" />

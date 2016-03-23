@@ -240,15 +240,73 @@ namespace TheFlavour.Controllers
             {
                 item.ImageLink = "http://" + Request.Url.Authority + item.ImageLink;
             }
+            ViewBag.PicLinks = pictures;
 
             // To select similar posts.
             Random rnd = new Random();
-            var artByGroup = db.Articles.Where(x => x.Group_ID == article.First().Group_ID).ToList();
+            int groupID = article.First().Group_ID;
+            var artByGroup = db.Articles.Where(x => x.Group_ID == groupID).ToList();
             var similarPost = artByGroup.OrderBy(ID => rnd.Next()).Take(3).ToList();
-
             ViewBag.SimilarPosts = similarPost.Except(article);
-            ViewBag.PicLinks = pictures;
-            return View(article);
+
+            var articleID = article.First().ID;
+            ViewBag.CommentsAmount = db.Comments.Where(x => x.ArticleID == articleID).Count();
+
+            ViewModels.ArtCom articleComments = new ArtCom() {
+                Article = article.First(),
+                CommentForm = new CommentForm()
+            }; 
+
+            return View(articleComments);
+        }
+
+
+        // POST: Home/AddComment
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComment([Bind(Include = "Name, Email, Website, Message")] ViewModels.CommentForm comments, int? currentID, int articleID)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var newComment = new Comment();
+
+                newComment.Author = comments.Name;
+                newComment.Email = comments.Email;
+                newComment.Website = comments.Website;
+                newComment.Text = comments.Message;
+                newComment.ArticleID = articleID;
+
+                if (currentID != null)
+                {
+                    newComment.ParentID = currentID;
+                    Email((int)currentID, articleID);
+                }
+
+                db.Comments.Add(newComment);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Article", new { id = articleID });
+        }
+
+        public void Email(int id, int articleID)
+        {
+            var author = db.Comments.Find(id);
+
+            Tuple<RestClient, RestRequest> clientRes = Mail.MailAuth();
+            RestClient client = clientRes.Item1;
+            RestRequest request = clientRes.Item2;
+            request.AddParameter("to", author.Email);
+
+            request.AddParameter("from", "support@test.pro");
+            request.AddParameter("subject", "New reply on your message!");
+            request.AddParameter("text", "Here's your link on replied message! " + 
+                "http://" + Request.Url.Authority + "/Article/" + articleID);
+            request.Method = Method.POST;
+            client.Execute(request);
         }
         
     }

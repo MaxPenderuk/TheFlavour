@@ -18,6 +18,7 @@ namespace TheFlavour.Models
         public Article()
         {
             this.Pictures = new HashSet<Picture>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int ID { get; set; }
@@ -36,5 +37,7 @@ namespace TheFlavour.Models
         public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Picture> Pictures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
