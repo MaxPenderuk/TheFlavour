@@ -142,7 +142,7 @@ namespace TheFlavour.Controllers
         }
 
         // GET: Home/Blog
-        public ActionResult Blog(int? Id, int? auth, string currentFilter, string searchString, int? page)
+        public ActionResult Blog(int? Id, int? auth, string currentFilter, string searchString, int? page, int? categoryID)
         {
             var allGroups = (from x in db.Groups select x).ToList();
             var group = db.Groups.Where(x => x.ID == Id).FirstOrDefault(); 
@@ -162,14 +162,8 @@ namespace TheFlavour.Controllers
             // and we didn't select author.
             if (auth == null && string.IsNullOrEmpty(searchString))
             {
-                if (Id == 6)
-                {
-                    article = (from x in db.Articles select x).ToList();
-                }
-                else
-                {
-                    article = group.Articles.ToList(); ;
-                }
+                article = (Id == 6) ? (from x in db.Articles select x).ToList()
+                    : group.Articles.ToList();
             }
             else if (string.IsNullOrEmpty(searchString) && auth != null)
             {
@@ -191,14 +185,8 @@ namespace TheFlavour.Controllers
             }
             else
             {
-                if (auth != null)
-                {
-                    ViewBag.Previous = string.Format("/Blog?auth={0}&page={1}", auth, pageNumber - 1);
-                }
-                else
-                {
-                    ViewBag.Previous = string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
-                }
+                ViewBag.Previous = (auth != null) ? string.Format("/Blog?auth={0}&page={1}", auth, pageNumber - 1)
+                    : string.Format("/Blog/{0}?page={1}", Id, pageNumber - 1);
             }
 
             if (pageNumber == pagedlist.PageCount)
@@ -207,14 +195,8 @@ namespace TheFlavour.Controllers
             }
             else
             {
-                if (auth != null)
-                {
-                    ViewBag.Next = string.Format("/Blog?auth={0}&page={1}", auth, pageNumber + 1);
-                }
-                else
-                {
-                    ViewBag.Next = string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
-                }
+                ViewBag.Next = (auth != null) ? string.Format("/Blog?auth={0}&page={1}", auth, pageNumber + 1)
+                    : string.Format("/Blog/{0}?page={1}", Id, pageNumber + 1);
             }
 
             // To keep track of the selected group.
@@ -252,6 +234,7 @@ namespace TheFlavour.Controllers
             var articleID = article.First().ID;
             ViewBag.CommentsAmount = db.Comments.Where(x => x.ArticleID == articleID).Count();
 
+            // Common model for 'Article' & 'CommentForm' classes.
             ViewModels.ArtCom articleComments = new ArtCom() {
                 Article = article.First(),
                 CommentForm = new CommentForm()
@@ -292,6 +275,7 @@ namespace TheFlavour.Controllers
             return RedirectToAction("Article", new { id = articleID });
         }
 
+        // To send message to person whose comment have been replied. 
         public void Email(int id, int articleID)
         {
             var author = db.Comments.Find(id);

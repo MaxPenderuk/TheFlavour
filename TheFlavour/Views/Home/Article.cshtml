@@ -28,7 +28,7 @@
                             </header>
 
                             <div class="post-thumbnail">
-                                <a title="@Model.Article.Title" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + Model.Article.ImageLink)"><img src="http://@(Request.Url.Authority + Model.Article.ImageLink)" class="attachment- wp-post-image" alt="@Model.Article.ID" /></a>
+                                <a title="@Model.Article.Title" rel="prettyPhoto" data-rel="prettyPhoto" href="@("http://" + Request.Url.Authority + Model.Article.ImageLink)"><img src="@("http://" + Request.Url.Authority + Model.Article.ImageLink)" class="attachment- wp-post-image" alt="@Model.Article.ID" /></a>
                             </div>
 
                             <div class="entry-content">
@@ -46,23 +46,20 @@
                                 </div>
                             </div>
                         </article>
-                        <section class="tagcloud">
-                            <a href="/Menu/2">desert</a>
-                        </section>
                         <!--Share Links-->
                         <section class="social-share-blog">
                             <div class="twitter">
-                                <a href="https://twitter.com/share?url = @(Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
+                                <a href="@("https://twitter.com/share?url=" + Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
                                     <i class="tficon-twitter-postshare"></i>Tweet
                                 </a>
                             </div>
                             <div class="facebook-share">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u= @(Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
+                                <a href="@("https://www.facebook.com/sharer/sharer.php?u=" + Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
                                     <i class="tficon-facebook-postshare"></i>Share
                                 </a>
                             </div>
                             <div class="pinterest">
-                                <a href="http://www.pinterest.com/pin/create/button/?url= @(Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
+                                <a href="@("http://www.pinterest.com/pin/create/button/?url=" + Request.Url.Authority + "/Article/" + Model.Article.ID)" target="_blank">
                                     <i class="tficon-pinterest-postshare"></i>Pin it
                                 </a>
                             </div>
@@ -75,7 +72,7 @@
                                 @foreach (var item in ViewBag.SimilarPosts)
                                 {
                                     <a href="/Article/@item.ID">
-                                        <img width="260" height="260" src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                        <img width="260" height="260" src="@("http://" + Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
                                         <span>@item.Title</span>
                                     </a>
                                 }
@@ -122,39 +119,42 @@
                                 
                             </div><!-- #respond -->
                         </div><!-- /for commnets-template -->
-                        <div class="divider-commentform"></div>
 
-                        <section id="comments" class="comments-area">
-                            <ol class="commentlist">
-                                @foreach (var item in Model.Article.Comments)
-                                {
-                                    <li id="@("comment" + item.ID)"  class="comment even thread-even depth-1">
-                                        <article class="comment-body">
-                                            <div class="comment-avatar">
-                                                <img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=64' class='avatar avatar-64 photo' height='64' width='64' />
-                                            </div>
+                        @if (ViewBag.CommentsAmount != 0)
+                        {
+                            <div class="divider-commentform"></div>
+                            <section id="comments" class="comments-area">
+                                <ol class="commentlist">
+                                    @foreach (var item in Model.Article.Comments)
+                                    {
+                                        <li id="@("comment" + item.ID)" class="comment even thread-even depth-1">
+                                            <article class="comment-body">
+                                                <div class="comment-avatar">
+                                                    <img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=64' class='avatar avatar-64 photo' height='64' width='64' />
+                                                </div>
 
-                                            <div class="comment-aside">
-                                                <div class="comment-meta">
-                                                    <span class="comment-author"><a href="#">@item.Author</a></span>
-                                                    <a class='comment-reply-link' href="" cur-id="@item.ID">Reply</a>
+                                                <div class="comment-aside">
+                                                    <div class="comment-meta">
+                                                        <span class="comment-author"><a href="#">@item.Author</a></span>
+                                                        <a class='comment-reply-link' href="" cur-id="@item.ID">Reply</a>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        @if (item.ParentID != null)
+                                                        {
+                                                            <p>@(item.Comment2.Author + ", " + item.Text)</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>@item.Text</p>
+                                                        }
+                                                    </div>
                                                 </div>
-                                                <div class="comment-content">
-                                                    @if (item.ParentID != null)
-                                                    {
-                                                        <p>@(item.Comment2.Author + ", " + item.Text)</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p>@item.Text</p>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </article><!-- /.comment-body-->
-                                    </li><!-- #comment-## -->
+                                            </article><!-- /.comment-body-->
+                                        </li><!-- #comment-## -->
                                     }
-                            </ol>
-                        </section>
+                                </ol>
+                            </section>
+                        }
 
 
                     </div><!-- /.inner -->
