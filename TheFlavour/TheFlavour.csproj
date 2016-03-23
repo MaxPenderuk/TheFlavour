@@ -259,6 +259,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AmountOfComments.cs" />
     <Compile Include="ViewModels\ArtCom.cs" />
     <Compile Include="ViewModels\CommentForm.cs" />
     <Compile Include="ViewModels\ContactForm.cs" />

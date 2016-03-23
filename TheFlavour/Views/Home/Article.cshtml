@@ -65,14 +65,21 @@
                             </div>
                         </section>
 
-                        @if (ViewBag.SimilarPosts != null)
+                        @if (ViewBag.SimilarPosts.Count != 0)
                         {
                             <section class="post-similar">
                                 <h1 class="title">You may also <span>like these posts:</span></h1>
                                 @foreach (var item in ViewBag.SimilarPosts)
                                 {
                                     <a href="/Article/@item.ID">
-                                        <img width="260" height="260" src="@("http://" + Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                        @if (item.ImageLink != null)
+                                        {
+                                            <img width="260" height="260" src="@("http://" + Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                        }
+                                        else
+                                        {
+                                            <img width="260" height="260" src="@("http://" + Request.Url.Authority + "/images/no_image.jpg")" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                        }
                                         <span>@item.Title</span>
                                     </a>
                                 }

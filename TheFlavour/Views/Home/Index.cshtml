@@ -62,7 +62,8 @@
                                             <div data-animate-in="fadeInDown" data-animate-out="fadeOutUp" class="invisible">
                                                 <div class="slider-title-before">
                                                     <div class="title-line left"></div>
-                                                    <span>The</span>                                        <div class="title-line right"></div>
+                                                    <span>The</span>                                        
+                                                    <div class="title-line right"></div>
                                                 </div>
                                                 <h1 class="slider-title">Flavour</h1>
                                                 <h5 class="slider-subtitle">bar, BISTRO <span> & </span> restaurant</h5>
@@ -101,7 +102,7 @@
         </div>
         <script>
     jQuery(document).ready(function($) {
-        $('.main-carousel').prepend('<img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/slide1.jpg" alt="" class="testimage hidden">');
+        $('.main-carousel').prepend('<img src="@("http://" + Request.Url.Authority + "/images/Home/Slides/slide1.jpg")" alt="" class="testimage hidden">');
         $('.testimage').load(function(){
             $(".main-top .spinner, .main-top .testimage").remove();
             $(".main-carousel").removeClass('invisible').addClass('animated fadeIn');
@@ -168,7 +169,7 @@
                 <div class="col-sm-4 post menu_type">
                     <div class="inner">
                         <header class="entry-header">
-                            <h1 class="entry-title"><a href="/Home/Menu/1">Food</a></h1>
+                            <h1 class="entry-title"><a href="/Menu/1">Food</a></h1>
                         </header><div class="post-thumbnail">
                             <a href="/Menu/1" class="post-find-more">
                                 <span><div class="divider up"></div>Find Out More<div class="divider down"></div></span>
@@ -196,7 +197,7 @@
                         <header class="entry-header">
                             <h1 class="entry-title"><a href="/Menu/3">Drinks</a></h1>
                         </header><div class="post-thumbnail">
-                            <a href="/Home/Menu/3" class="post-find-more">
+                            <a href="/Menu/3" class="post-find-more">
                                 <span><div class="divider up"></div>Find Out More<div class="divider down"></div></span>
                             </a><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/drinks-295x295.jpg" width="295" height="295" />
                         </div><div class="entry-content"><p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faudolor ipsum clorem ibus vestibulum.</p></div><footer class="entry-meta">
@@ -213,7 +214,7 @@
                         <h1 class="title">Tradition &#038; Passion</h1>
                         <div class="text">
                             Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus oncus ut eleifend nib portitor. Lorem in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum  giatrent nisl urekgot dapibus. Mauris iaculis porttitor posuere.<br />
-                            <a href="http://demo.themefuse.com/theflavour/?page_id=452" class="btn btn-orange-transparent" target="_self"><span>find out more</span></a>
+                            <a href="/About" class="btn btn-orange-transparent" target="_self"><span>find out more</span></a>
                         </div>
                     </div>
                 </div>

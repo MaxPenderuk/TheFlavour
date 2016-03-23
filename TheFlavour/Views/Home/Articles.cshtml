@@ -15,8 +15,8 @@
                             <div class="inner">
                                 @if (item.ImageLink != null)
                                 {
-                                    <a href="http://demo.themefuse.com/theflavour/?p=96" class="post-thumbnail">
-                                        <img src="http://@(Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
+                                    <a href="@("/Article/" + item.ID)" class="post-thumbnail">
+                                        <img src="@("http://" + Request.Url.Authority + item.ImageLink)" class="attachment-post-thumb1 wp-post-image" alt="@item.ID" />
                                     </a>
                                 }
                                 <div class="entry-aside">
@@ -41,14 +41,12 @@
                                     </div>
                                     <footer class="entry-meta">
                                         <a href="@Url.Action("Article", "Home", new { id = item.ID })" class="btn btn-black-transparent btn-xs"><span>find out more</span></a>
-                                        @*<a href="http://demo.themefuse.com/theflavour/?p=96#comments" class="link-comment">
-                                            <span>7</span>
-                                        </a>*@
                                     </footer>
                                 </div>
                             </div>
                         </article>
                     }
+
                     <!-- pagination -->
                     <nav class="navigation paging-navigation" role="navigation">
                         <div class="pagination loop-pagination">

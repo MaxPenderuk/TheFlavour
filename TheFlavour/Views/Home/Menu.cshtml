@@ -19,7 +19,7 @@
                                             @foreach (var item in ViewBag.Menu)
                                             {
                                                 <li class="categories-item">
-                                                    <a href="#@item.Href" class="anchor-scroll"><img src="http://@(Request.Url.Authority + item.ImageLink)"><br><br>@item.Name</a>
+                                                    <a href="@("#" + item.Href)" class="anchor-scroll"><img src="@("http://" + Request.Url.Authority + item.ImageLink)"><br><br>@item.Name</a>
                                                 </li>
                                             }
                                         </ul>
@@ -72,7 +72,7 @@
                                     {
                                         <li>
                                             <div class="dishes-thumbnail">
-                                                <a title="@i.Name" rel="prettyPhoto" data-rel="prettyPhoto" href="http://@(Request.Url.Authority + i.ImageLink)"><img width="147" height="150" src="http://@(Request.Url.Authority + i.ImageLink)" class="attachment-thumbnail wp-post-image" /></a>
+                                                <a title="@i.Name" rel="prettyPhoto" data-rel="prettyPhoto" href="@("http://" + Request.Url.Authority + i.ImageLink)"><img width="147" height="150" src="@("http://" + Request.Url.Authority + i.ImageLink)" class="attachment-thumbnail wp-post-image" /></a>
                                             </div>
 
                                             <div class="dishes-content">
@@ -99,7 +99,7 @@
         <!--To render links for the other menu types-->
        @foreach (var item in ViewBag.ExceptCur)
        {
-        <a href="/Home/Menu/@item.ID" class="btn btn-black-transparent" target="_self"><span>VIEW @item.Name</span></a>
+        <a href="@("/Menu/" + item.ID)" class="btn btn-black-transparent" target="_self"><span>VIEW @item.Name</span></a>
        }
     </section>
     <!--The bottom part of the page we wanna render with map-->

@@ -66,7 +66,7 @@
                                     <div class="submit-form clearfix" style="width:100%">
                                         <button name="submit" class="btn-submit" id="submit" type="submit">submit the message</button>
                                         <button class="sending" id="submit" style="display: none;" type="submit">Sending ...</button>
-                                        <img id="sending_img" src="http://demo.themefuse.com/theflavour/wp-content/themes/theflavour-parent/images/loading.gif" alt="Sending" style="margin-bottom:-10px; display: none; border:0;" />
+                                        <img id="sending_img" src="@("http://" + Request.Url.Authority + "/images/loading.gif")" alt="Sending" style="margin-bottom:-10px; display: none; border:0;" />
                                     </div>
                                 }
                             </div>

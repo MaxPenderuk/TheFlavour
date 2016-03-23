@@ -142,7 +142,7 @@ namespace TheFlavour.Controllers
         }
 
         // GET: Home/Blog
-        public ActionResult Blog(int? Id, int? auth, string currentFilter, string searchString, int? page, int? categoryID)
+        public ActionResult Blog(int? auth, string currentFilter, string searchString, int? page, int? categoryID, int Id = 6)
         {
             var allGroups = (from x in db.Groups select x).ToList();
             var group = db.Groups.Where(x => x.ID == Id).FirstOrDefault(); 
@@ -205,6 +205,11 @@ namespace TheFlavour.Controllers
             ViewBag.HidePagination = false;
             if (article.Count <= pageSize) ViewBag.HidePagination = true;
 
+            // Send info for the right sidebar.
+            var rightSideInfo = GetRightSideInfo();
+            ViewBag.FreshArticles = rightSideInfo.Item1;
+            ViewBag.MostCommented = rightSideInfo.Item2;
+
             if (auth != null) return View("Articles", pagedlist);
             return View(pagedlist);
         }
@@ -229,7 +234,7 @@ namespace TheFlavour.Controllers
             int groupID = article.First().Group_ID;
             var artByGroup = db.Articles.Where(x => x.Group_ID == groupID).ToList();
             var similarPost = artByGroup.OrderBy(ID => rnd.Next()).Take(3).ToList();
-            ViewBag.SimilarPosts = similarPost.Except(article);
+            ViewBag.SimilarPosts = similarPost.Except(article).ToList();
 
             var articleID = article.First().ID;
             ViewBag.CommentsAmount = db.Comments.Where(x => x.ArticleID == articleID).Count();
@@ -238,7 +243,12 @@ namespace TheFlavour.Controllers
             ViewModels.ArtCom articleComments = new ArtCom() {
                 Article = article.First(),
                 CommentForm = new CommentForm()
-            }; 
+            };
+
+            // Send info for the right sidebar.
+            var rightSideInfo = GetRightSideInfo();
+            ViewBag.FreshArticles = rightSideInfo.Item1;
+            ViewBag.MostCommented = rightSideInfo.Item2;
 
             return View(articleComments);
         }
@@ -261,22 +271,24 @@ namespace TheFlavour.Controllers
                 newComment.Website = comments.Website;
                 newComment.Text = comments.Message;
                 newComment.ArticleID = articleID;
-
-                if (currentID != null)
-                {
-                    newComment.ParentID = currentID;
-                    Email((int)currentID, articleID);
-                }
+                newComment.ParentID = currentID;
 
                 db.Comments.Add(newComment);
                 db.SaveChanges();
+
+                // If we've replied on a comment,
+                // send a message to person who wrote that comment.
+                if (currentID != null)
+                {
+                    Email((int)currentID, articleID, newComment.ID);
+                }
             }
 
             return RedirectToAction("Article", new { id = articleID });
         }
 
         // To send message to person whose comment have been replied. 
-        public void Email(int id, int articleID)
+        public void Email(int id, int articleID, int commentID)
         {
             var author = db.Comments.Find(id);
 
@@ -288,9 +300,33 @@ namespace TheFlavour.Controllers
             request.AddParameter("from", "support@test.pro");
             request.AddParameter("subject", "New reply on your message!");
             request.AddParameter("text", "Here's your link on replied message! " + 
-                "http://" + Request.Url.Authority + "/Article/" + articleID);
+                "http://" + Request.Url.Authority + "/Article/" + articleID + "#comment" + commentID);
             request.Method = Method.POST;
             client.Execute(request);
+        }
+
+        // Get info for `Fresh Posts` and `Most Commented` blocks on the right side.
+        public Tuple<List<Article>, List<AmountOfComments>> GetRightSideInfo()
+        {
+            var articles = (from i in db.Articles select i).OrderByDescending(i => i.ID).Take(7).ToList();
+            var commentsInArt = (from i in db.Articles
+                                 select new { i.ID, Title = i.Title, Count = i.Comments.Count })
+                                 .OrderByDescending(i => i.Count).Take(7);
+
+            // A list for the most commented articles in descending order.
+            List<AmountOfComments> amount = new List<AmountOfComments>();
+
+            foreach (var item in commentsInArt)
+            {
+                AmountOfComments current = new AmountOfComments() {
+                    ID = item.ID,
+                    Title = item.Title,
+                    Count = item.Count
+                };
+                amount.Add(current);
+            }
+
+            return new Tuple<List<Models.Article>, List<AmountOfComments>>(articles, amount);
         }
         
     }
