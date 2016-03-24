@@ -1,0 +1,117 @@
+﻿.reservationForm .tfuse_captcha_reload{
+    background-image:url(../images/reload.png) !important;
+    background-repeat: no-repeat !important;
+    height: 18px !important;
+    margin-top: 15px !important;
+    max-width: 16px !important;
+    vertical-align: top;
+    background-color: transparent !important;
+    border:none !important;
+    width: 20px;
+}
+#header_message,#form_messages{
+    text-align: center;
+    color: #FFF;
+    font-size: 24px;
+}
+.reservationForm .right-colum .row.omega{
+    margin-right: 0;
+}
+.reservationForm .link-reset{
+    float: right;
+    margin-top: 75px;
+    margin-right: 20px;
+}
+.reservationForm .link-reset:hover{
+    color: #FFA42E;
+}
+.reservationForm input[type="radio"]{
+    margin-right: 10px;
+}
+.reservationForm input[type="checkbox"]{
+    margin-right: 10px;
+    margin-top: 0;
+}
+.reservationForm .select_row_up{
+    left: 92%;
+    top:20%;
+}
+.reservationForm .select_row_down{
+    left: 92%;
+    bottom: -14%;
+}
+.reservationForm .left-colum .select_row_up, .reservationForm .left-colum .select_row_down{
+    left: 50%;
+}
+.sidebar-right .reservation-container.container, .sidebar-left .reservation-container.container{
+    width: 780px;
+}
+.reservation-container{
+    text-align: left;
+}
+/* preview */
+#TB_ajaxContent #header_message, #TB_ajaxContent .reservationForm label{
+    color: #000;
+}
+#TB_ajaxContent .reservationForm .pull-left{
+    float: left;
+}
+#TB_ajaxContent .reservationForm .omega{
+    margin-right: 0;
+}
+#TB_ajaxContent .reservationForm .row {
+    margin-left: 0;
+    margin-right: 25px;
+    margin-top: 25px;
+    position: relative;
+}
+#TB_ajaxContent .reservationForm #submit {
+    margin: 64px auto 0 8px;
+    padding: 17px 73px;
+    color: #1C150B;
+    font-size: 15px;
+    font-weight: 800;
+    background: #FFA42E;
+    border: 2px solid #FFA42E;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+#TB_ajaxContent .reservationForm #submit:hover {
+    background: none;
+    color: #FFA42E;
+}
+#TB_ajaxContent .reservationForm .link-reset{
+    float: right;
+    margin-top: 75px;
+    margin-right: 20px;
+    color: #FFA42E;
+    text-decoration: none;
+}
+#TB_ajaxContent .reservationForm .link-reset:hover{
+    color: #FFA42E;
+}
+#TB_ajaxContent .reservation_submit{
+    margin-bottom: 30px;
+}
+#TB_ajaxContent .reservationForm .inputtext,
+#TB_ajaxContent .reservationForm select,
+#TB_ajaxContent .reservationForm textarea{
+    border: 3px solid #000;
+    background: #fff !important;
+    color: #FFA42E;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px;
+    text-align: left;
+    z-index: 100;
+    border-radius: 0;
+}
+#TB_ajaxContent .reservationForm select{
+    height: 54px;
+}
+#TB_ajaxContent .reservationForm > .row{
+    margin-top: 0;
+}
+.ui-widget-content {
+    color: #000 !important;
+}

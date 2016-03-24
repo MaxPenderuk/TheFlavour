@@ -5,7 +5,7 @@
 
 <script src="@Url.Content("~/Scripts/TheFlavour/contact_forms.js")"></script>
 <link href="@Url.Content("~/Content/contact-form.css")" rel="stylesheet" type="text/css" />
-<script type='text/javascript' src='http://demo.themefuse.com/theflavour/wp-includes/js/jquery/jquery.form.min.js?ver=3.37.0'></script>
+<script src="@Url.Content("~/Scripts/TheFlavour/jquery.form.min.js")"></script>
 
 <div id="page" class="hfeed site">
         @Html.Partial("_CommonNav")
@@ -23,7 +23,7 @@
                                 html: "<strong>Company Name HQ</strong> <br> 880 Sunset Boulevard, San Diego, CA, United States <br>Tel.: 555-522.326",
                                 popup: false,
                                 icon: {
-                                    image: "http://demo.themefuse.com/theflavour/wp-content/themes/theflavour-parent/images/icons/gmap_icon.png",
+                                    image: "@("http://" + Request.Url.Authority + "/images/gmap_icon.png")",
                                     iconsize: [25, 34],
                                     iconanchor: [12,34],
                                     infowindowanchor: [0, 0]

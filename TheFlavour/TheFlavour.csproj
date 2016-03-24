@@ -264,6 +264,7 @@
     <Compile Include="ViewModels\CommentForm.cs" />
     <Compile Include="ViewModels\ContactForm.cs" />
     <Compile Include="ViewModels\Footer.cs" />
+    <Compile Include="ViewModels\ReservationForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Dishes.mdf" />
@@ -276,8 +277,10 @@
     <Content Include="Content\cusel.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\googleapis-fonts.css" />
+    <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\prettyPhoto.css" />
+    <Content Include="Content\reservation_form.css" />
     <Content Include="Content\shCore.css" />
     <Content Include="Content\shThemeDefault.css" />
     <Content Include="Content\style.css" />
@@ -414,8 +417,10 @@
     <Content Include="Scripts\TheFlavour\gmap.min.js" />
     <Content Include="Scripts\TheFlavour\jquery-migrate.min.js" />
     <Content Include="Scripts\TheFlavour\jquery-ui.min.js" />
+    <Content Include="Scripts\TheFlavour\jquery.datetimepicker.js" />
     <Content Include="Scripts\TheFlavour\jquery.prettyPhoto.js" />
     <Content Include="Scripts\TheFlavour\parallax.js" />
+    <Content Include="Scripts\TheFlavour\reservation_frontend.js" />
     <Content Include="Scripts\TheFlavour\scrollto.js" />
     <Content Include="Scripts\TheFlavour\slicknav.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -445,6 +450,8 @@
     <Content Include="Views\Home\Articles.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\Shared\_BlogRightSide.cshtml" />
+    <Content Include="Views\Home\Reservation.cshtml" />
+    <Content Include="Scripts\TheFlavour\jquery.form.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\Menu\Deserts\Cakes\" />

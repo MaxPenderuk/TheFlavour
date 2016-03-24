@@ -78,7 +78,22 @@
                 <div class="col-sm-8 col-sm-offset-2 banner_container">
                     <div class="main-carousel">
                         <div id="myCarousel" class="carousel slide">
-                            <div class="carousel-inner"><div class="item active"><a target="_self" href="#1"><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer-750x489.jpg" width="750" height="489" /></a></div><div class="item"><a target="_self" href="#2"><img src="http://demo.themefuse.com/theflavour/wp-content/uploads/2014/05/offer2-750x489.jpg" width="750" height="489" /></a></div></div><div class="post-navigation"><ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="0" class="active"></li><li data-target="#myCarousel" data-slide-to="1"></li></ol></div>
+                            <div class="carousel-inner"><div class="item active">
+                                <a target="_self" href="#1">
+                                    <img src="@("http://" + Request.Url.Authority + "/images/offer.jpg")" width="750" height="489" />
+                                </a></div>
+                            <div class="item">
+                                <a target="_self" href="#2">
+                                    <img src="@("http://" + Request.Url.Authority + "/images/offer.jpg")" width="750" height="489" />
+                                </a>
+                                </div>
+                            </div>
+                            <div class="post-navigation">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>

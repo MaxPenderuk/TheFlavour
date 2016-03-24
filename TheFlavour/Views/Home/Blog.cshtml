@@ -8,7 +8,7 @@
     @if (ViewBag.SearchString == null)
     {
         <section class="main-top">
-            <div class="image-section" style="background:url(../../images/Blog/logo.jpg);">
+            <div class="image-section" style="background:url(@("http://" + Request.Url.Authority + "/images/Blog/logo.jpg"));">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">

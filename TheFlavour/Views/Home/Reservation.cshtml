@@ -1,0 +1,88 @@
+﻿@model TheFlavour.ViewModels.ReservationForm
+@{
+    ViewBag.Title = "Reservation";
+}
+
+@Styles.Render("~/Content/reservation_form")
+<div id="page" class="hfeed site">
+    @Html.Partial("_CommonNav")
+    <div id="main" class="site-main blog-details" role="main">
+        <h2 class="page-title-before">BOOK A TABLE</h2><h1 class="page-title">Make Reservations</h1>    <div class="container full-width">
+            <div class="row">
+                <div class="col-xs-12 content-area col-sm-8" id="primary">
+                    <div class="post-descr entry">
+                        <div class="reservation-description">
+                            Vivamus hendrerit arcu  erat molestie vehicula. Sed auctor nequeu tellus rhoncus retut eleifcibendend nibh porttitor. Ut in nulla enim haret mirolestie magna non lorem!
+                        </div>
+                    </div><!-- /.entry -->
+                </div><!-- /#primary -->
+
+
+            </div><!-- /.row -->
+        </div><!--/ .container -->
+    </div><!--/ #middle -->
+
+
+    <section class="reservation-section parallax-section" style="background-image:url(@("http://" + Request.Url.Authority + "/images/bg-reservation-form.jpg"));">
+        <div class="container reservation-container">
+            @using (Html.BeginForm("Reservation", "Home", FormMethod.Post, new { @id = "reservationForm", @class = "reservationForm", @name = "reservationForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <input id="this_form_id" type="hidden" value="24" /><div class="col-lg-3 col-lg-offset-1 col-md-4 col-sm-7 col-xs-10 left-colum">
+                        <div class='row field_text pull-left' style='width:138px;'>
+                            <label class='label_title'>DATE:</label>
+                            <br>
+                            @Html.TextBoxFor(m => m.Date, new { @class = "inputtext tfuse_rf_post_datepicker_in tf_rf_required_input", @style = "width:138px;" })
+                        </div>
+                        <div class='row field_text pull-left  omega' style='width:65px;'>
+                            <label class='label_title'>PERS: </label>
+                            <br>
+                            @Html.TextBoxFor(m => m.Person, new { @class = "inputtext tf_rf_required_input", @style = "width:65px;" })
+                        </div>
+                        <div class='row field_select pull-left  ' style='width:138px;  '>
+                            <label class='label_title' for='Time'>Time</label><br>
+                            @Html.DropDownList("Time", null, htmlAttributes: new { @class = "inputselect select_styled tfuse_option" })
+                        </div>
+                        <div class='row field_select pull-left  omega ' style='width:65px;  '>
+                            <label class='label_title' for='the-flavour_t332'>&nbsp</label><br>
+                            @Html.DropDownList("Period", (IEnumerable<SelectListItem>)ViewBag.Period, htmlAttributes: new { @class = "inputselect select_styled tfuse_option" })
+                        </div>
+                        <div class='row field_text pull-left  omega ' style='width:216px;  '>
+                            <label class='label_title'>PHONE NUMBER </label><br>
+                            @Html.TextBoxFor(m => m.Number, new { @class = "inputtext tf_rf_required_input", @style = "width:216px;" })
+                        </div>
+                    </div>
+                        <div class="col-md-7 col-xs-12 right-colum">
+                        <div class='row field_text pull-left  ' style='width:295px; clear:left;'>
+                            <label class='label_title'>NAME ON RESERVATION </label><br>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "inputtext tf_rf_required_input", @style = "width:295px;" })
+                        </div>
+                        <div class='row field_text pull-left  omega ' style='width:295px;  '>
+                            <label class='label_title'>EMAIL ADDRESS</label><br>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "inputtext the-flavour_email", @style = "width:295px;" })
+                        </div><div class='row field_textarea pull-left' style='width:616px;  '>
+                            <label class='label_title'>MESSAGE</label><br>
+                            @Html.TextAreaFor(m => m.Message, new { @class = "textareaField textarea", @style = "width:616px", rows = 10 })
+                        </div>
+                            <div class="clear"></div>
+                        <div class="reservation_submit">
+                            <span id="send_form">
+                                <input class="btn-submit" type="submit" id="submit" name="submit" value="request a reservation">
+                            </span>
+                            <span id="sending" style="display: none;">
+                                <input class="btn-submit" type="submit" id="submit" name="submit" value="Sending ...">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div id="form_messages" class="submit_message"></div>
+        </div>
+    </section>
+    @Html.Partial("_BottomPart", new TheFlavour.ViewModels.Footer { ShowMap = false })
+    <a class="anchor hidden" id="to-top" href="#page"><span class="tficon-row-up"></span></a>
+</div><!-- /#page-->
+
+@Scripts.Render("~/bundles/reservation_form")
+@Html.Partial("_GoogleAnalytics")

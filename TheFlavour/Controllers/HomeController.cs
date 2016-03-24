@@ -305,6 +305,62 @@ namespace TheFlavour.Controllers
             client.Execute(request);
         }
 
+        // GET: Home/Reservation
+        public ActionResult Reservation()
+        {
+            TimeSpan start = new TimeSpan(0, 1, 0, 0, 0);
+            TimeSpan interval = TimeSpan.FromMinutes(15);
+           
+            DateTime dt = new DateTime();
+            dt = dt.Date + start;
+
+            List<string> timeList = new List<string>() { dt.ToString("HH:mm") };
+
+            for (int i = 0; i < 47; i++)
+            {
+                dt = dt + interval;
+                timeList.Add(dt.ToString("HH:mm"));
+            }
+            
+            List<SelectListItem> period = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text="AM", Value="AM" },
+                new SelectListItem() { Text="PM", Value="PM" }
+            };
+
+            ViewBag.Time = new SelectList(timeList);
+            ViewBag.Period = new SelectList(period, "Value", "Text");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public int Reservation([Bind(Include = "Date, Time, Period, Number, Name, Email, Message")] ViewModels.ReservationForm res)
+        {
+            // If form is valid -> send a message via MailGun.
+            if (ModelState.IsValid)
+            {
+                // Get MailGun setup from `App_Start/Mail.cs`.
+                Tuple<RestClient, RestRequest> clientRes = Mail.MailAuth();
+
+                RestClient client = clientRes.Item1;
+                RestRequest request = clientRes.Item2;
+
+                request.AddParameter("to", "jaspergrom@gmail.com");
+                request.AddParameter("from", res.Email);
+                request.AddParameter("subject", "Reservation");
+                request.AddParameter("text", 
+                    "Your name is " + res.Name + "! You've ordered table on " +
+                    res.Time + res.Period + "of " + res.Date);
+                request.Method = Method.POST;
+                client.Execute(request);
+                return 1;
+            }
+
+            return 0;
+        }
+
         // Get info for `Fresh Posts` and `Most Commented` blocks on the right side.
         public Tuple<List<Article>, List<AmountOfComments>> GetRightSideInfo()
         {

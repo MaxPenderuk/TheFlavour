@@ -23,6 +23,12 @@ namespace TheFlavour
                     "~/Scripts/TheFlavour/parallax.js",
                     "~/Scripts/TheFlavour/scrollto.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/reservation_form").Include(
+                    "~/Scripts/TheFlavour/jquery.datetimepicker.js",
+                    "~/Scripts/TheFlavour/reservation_frontend.js",
+                    "~/Scripts/TheFlavour/jquery.form.min.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/gmap").Include(
                    "~/Scripts/TheFlavour/gmap.min.js"));
 
@@ -46,6 +52,11 @@ namespace TheFlavour
                       "~/Content/cusel.css",
                       "~/Content/shCore.css",
                       "~/Content/shThemeDefault.css"));
+
+            bundles.Add(new StyleBundle("~/Content/reservation_form").Include(
+                    "~/Content/jquery.datetimepicker.css",
+                    "~/Content/reservation_form.css"
+                ));
         }
     }
 }
