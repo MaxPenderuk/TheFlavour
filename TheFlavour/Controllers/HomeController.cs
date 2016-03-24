@@ -93,9 +93,9 @@ namespace TheFlavour.Controllers
                 RestClient client = clientRes.Item1;
                 RestRequest request = clientRes.Item2;
 
-                request.AddParameter("to", "jaspergrom@gmail.com");
+                request.AddParameter("to", "max_block@mail.ru");
                 request.AddParameter("from", contactForm.Email);
-                request.AddParameter("subject", "`Contact us` form");
+                request.AddParameter("subject", "The Flavour -> `Contact us` form");
                 request.AddParameter("text", contactForm.Message);
                 request.Method = Method.POST;
                 client.Execute(request);
@@ -249,7 +249,7 @@ namespace TheFlavour.Controllers
             var rightSideInfo = GetRightSideInfo();
             ViewBag.FreshArticles = rightSideInfo.Item1;
             ViewBag.MostCommented = rightSideInfo.Item2;
-
+ 
             return View(articleComments);
         }
 
@@ -347,7 +347,7 @@ namespace TheFlavour.Controllers
                 RestClient client = clientRes.Item1;
                 RestRequest request = clientRes.Item2;
 
-                request.AddParameter("to", "jaspergrom@gmail.com");
+                request.AddParameter("to", "max_block@mail.ru");
                 request.AddParameter("from", res.Email);
                 request.AddParameter("subject", "Reservation");
                 request.AddParameter("text", 
